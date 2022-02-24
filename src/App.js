@@ -3,9 +3,12 @@ import { MainPage } from "./Main/MainPage";
 import styled from "styled-components";
 
 const TitleHeader = styled.div`
+  position: sticky;
+  top: 0;
   box-sizing: border-box;
   background: #ccc;
   height: 50px;
+  z-index: 1;
 ` 
 
 const Title = styled.div`

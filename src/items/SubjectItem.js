@@ -15,15 +15,36 @@ const Title = styled.div`
   border-bottom: 1px solid #E0E0E0;
 `
 
+const SubTitle = styled(Title)`
+  font-size: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+`
+
+const ReportFooter = styled.div`
+  font-size: 15px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`
+
 const ReportContainer = styled.div`
   display: flex;
 `
 
 const Report = styled.div`
   border-radius: 10px;
+  width: 200px;
+  height: 50px;
   border: 3px solid gray;
   margin: 10px;
+  cursor: pointer;
+  position: relative;
 `
+
+const clickReport = () => {
+  
+}
 
 export const SubjectItem = (props) => {
   const title = props.title;
@@ -37,7 +58,12 @@ export const SubjectItem = (props) => {
       <ReportContainer>
       {
         reports.map((report, index) => {
-          return <Report>{report}</Report>
+          return (
+            <Report>
+              <SubTitle>{report}</SubTitle>
+              <ReportFooter>~ 2022/10/22</ReportFooter>
+            </Report>
+          )
         })
       }
       </ReportContainer>

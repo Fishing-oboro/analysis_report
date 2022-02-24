@@ -4,7 +4,17 @@ import { SubjectItem } from '../items/SubjectItem';
 import { SubjectList } from './SubjectList';
 import { Report } from './Report';
 
-
+const Icon = styled.div`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 40px;
+  border: 3px solid gray;
+  background-color: white;
+  cursor: pointer;
+`
 
 const SideBar = styled.div`
   box-sizing: border-box;
@@ -15,13 +25,13 @@ const SideBar = styled.div`
   overflow: auto;
   background: #eee;
   padding: 20px;
+  z-index: 1;
 `
 
 const SideItem = styled.div`
   position: sticky;
   margin-bottom: 0;
   top: 10px;
-  z-index: 1;
 `
 
 const MainBody = styled.div`
@@ -41,16 +51,19 @@ const Title = (props) => {
   )
 }
 
-export const MainPage = () => {
-  const [page, setPage] = useState(<SubjectList />);
+export const MainPage = (props) => {
+  const subjects = ['math', 'math'];
+  const [page, setPage] = useState(<SubjectList subjects={subjects}/>);
 
   return (
     <div>
       <SideBar>
         <SideItem>
+          <Icon />
+          <div>username</div>
           <h2>pageLink-test</h2>
           <ul>
-            <li onClick={() => setPage(<SubjectList />)}>main</li>
+            <li onClick={() => setPage(<SubjectList subjects={subjects}/>)}>main</li>
             <li onClick={() => setPage(<Report tab='submit'/>)}>submit</li>
             <li onClick={() => setPage(<Report tab='result'/>)}>result</li>
             <li onClick={() => setPage(<Report tab='info'/>)}>info</li>
@@ -58,7 +71,7 @@ export const MainPage = () => {
         </SideItem>
       </SideBar>
       <MainBody>
-        <Title text='Mainpage' />
+        <Title text='show Current PageName' />
         {page}
       </MainBody>
     </div>

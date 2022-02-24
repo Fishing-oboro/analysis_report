@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { SubjectItem } from "../items/SubjectItem";
 
-export const SubjectList = () => {
-  const [items, setItems] = useState(['math', 'math']);
+export const SubjectList = (props) => {
+  const userSubjects = props.subjects;
+  const [items, setItems] = useState(userSubjects);
 
   return(
     <div>
