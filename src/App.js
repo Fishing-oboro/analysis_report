@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { MainPage } from "./Main/MainPage";
+import styled from "styled-components";
+
+const TitleHeader = styled.div`
+  box-sizing: border-box;
+  background: #ccc;
+  height: 50px;
+` 
+
+const Title = styled.div`
+  position: absolute;
+  margin: 5px 10px;
+  font-size: 30px;
+  font-family: fantasy;
+`
 
 function App() {
+  const [logined, setLogined] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <TitleHeader>
+        <Title>Analysis-Report</Title>
+      </TitleHeader>
+      {
+        logined === false ? <MainPage /> : <MainPage />
+      }
     </div>
   );
 }
