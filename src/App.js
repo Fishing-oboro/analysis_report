@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MainPage } from "./Main/MainPage";
 import styled from "styled-components";
+import { LoginPage } from "./Login/LoginPage";
 
 const TitleHeader = styled.div`
   position: sticky;
@@ -16,9 +17,10 @@ const Title = styled.div`
   margin: 5px 10px;
   font-size: 30px;
   font-family: fantasy;
+  cursor: pointer;
 `
 
-function App() {
+export const App = () => {
   const [logined, setLogined] = useState(false);
 
   return (

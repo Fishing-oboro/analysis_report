@@ -28,12 +28,15 @@ const ReportFooter = styled.div`
   right: 0;
 `
 
-const ReportContainer = styled.div`
-  display: flex;
+const ReportContainer = styled.ul`
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
 `
 
-const Report = styled.div`
+const Report = styled.li`
   border-radius: 10px;
+  display: inline-block;
   width: 200px;
   height: 50px;
   border: 3px solid gray;
@@ -48,7 +51,7 @@ const clickReport = () => {
 
 export const SubjectItem = (props) => {
   const title = props.title;
-  const [reports, setReports] = useState(['math1', 'math2']); 
+  const [reports, setReports] = useState(['1', '2', 3, 4]); 
 
   // props.titleを参照し、reportを取得
   

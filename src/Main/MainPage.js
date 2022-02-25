@@ -35,9 +35,28 @@ const SideItem = styled.div`
 `
 
 const MainBody = styled.div`
+  top: 0;
+  left: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 40px;
+  width: 800px;
+  background-color: white;
+`
+
+const MainBodyContainer = styled.div`
   box-sizing: border-box;
   margin-left: 220px;
   padding: 20px 40px;
+  position: relative;
+`
+
+const MainBodyFotter = styled.footer`
+  bottom: 0;
+  height: 80px;
+  box-sizing: border-box;
+  margin-left: 220px;
+  background-color: #ccc;
 `
 
 const Title = (props) => {
@@ -52,7 +71,7 @@ const Title = (props) => {
 }
 
 export const MainPage = (props) => {
-  const subjects = ['math', 'math'];
+  const subjects = [1, 2, 3, 4, 5];
   const [page, setPage] = useState(<SubjectList subjects={subjects}/>);
 
   return (
@@ -66,14 +85,21 @@ export const MainPage = (props) => {
             <li onClick={() => setPage(<SubjectList subjects={subjects}/>)}>main</li>
             <li onClick={() => setPage(<Report tab='submit'/>)}>submit</li>
             <li onClick={() => setPage(<Report tab='result'/>)}>result</li>
-            <li onClick={() => setPage(<Report tab='info'/>)}>info</li>
           </ul>
         </SideItem>
       </SideBar>
-      <MainBody>
+      <MainBodyContainer>
+        <MainBody>
         <Title text='show Current PageName' />
         {page}
-      </MainBody>
+        </MainBody>
+        
+        
+      </MainBodyContainer>
+      <MainBodyFotter>
+          <Title />
+          <div>footer</div>
+      </MainBodyFotter>
     </div>
   )
 }
