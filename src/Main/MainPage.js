@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import { SubjectItem } from '../items/SubjectItem';
 import { SubjectList } from './SubjectList';
 import { Report } from './Report';
+import { Link } from 'react-router-dom';
 
 const Icon = styled.div`
   display: block;
@@ -37,9 +38,11 @@ const SideItem = styled.div`
 const MainBody = styled.div`
   top: 0;
   left: 40px;
+  margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   padding: 20px 40px;
+  min-height: 100vh;
   width: 800px;
   background-color: white;
 `
@@ -53,7 +56,9 @@ const MainBodyContainer = styled.div`
 
 const MainBodyFotter = styled.footer`
   bottom: 0;
+  right: 0;
   height: 80px;
+  overflow: auto;
   box-sizing: border-box;
   margin-left: 220px;
   background-color: #ccc;
@@ -71,8 +76,16 @@ const Title = (props) => {
 }
 
 export const MainPage = (props) => {
-  const subjects = [1, 2, 3, 4, 5];
-  const [page, setPage] = useState(<SubjectList subjects={subjects}/>);
+  const user = props.user;
+  const user_id = 1;
+  const report_id = 1;
+  const [page, setPage] = useState(<SubjectList user_id={user_id}/>);
+
+  useEffect(() => {
+    setPage(<SubjectList user_id={user_id}/>)
+  }, [user_id])
+
+  
 
   return (
     <div>
@@ -82,9 +95,10 @@ export const MainPage = (props) => {
           <div>username</div>
           <h2>pageLink-test</h2>
           <ul>
-            <li onClick={() => setPage(<SubjectList subjects={subjects}/>)}>main</li>
-            <li onClick={() => setPage(<Report tab='submit'/>)}>submit</li>
-            <li onClick={() => setPage(<Report tab='result'/>)}>result</li>
+            <li onClick={() => setPage(<SubjectList user_id={user_id}/>)}>main</li>
+            <li onClick={() => setPage(<Report tab='submit' user_id={user_id} report_id={report_id}/>)}>submit</li>
+            <li onClick={() => setPage(<Report tab='result' user_id={user_id} report_id={report_id}/>)}>result</li>
+            <li><Link to='/login'>login</Link></li>
           </ul>
         </SideItem>
       </SideBar>
@@ -93,12 +107,9 @@ export const MainPage = (props) => {
         <Title text='show Current PageName' />
         {page}
         </MainBody>
-        
-        
       </MainBodyContainer>
       <MainBodyFotter>
-          <Title />
-          <div>footer</div>
+        <div>footer</div>
       </MainBodyFotter>
     </div>
   )

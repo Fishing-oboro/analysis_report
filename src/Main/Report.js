@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import styled from "styled-components"
 import { Detail } from "../items/Detail"
 import {PolarAngleAxis, PolarGrid, PolarRadiusAxis,
    RadarChart, Radar} from 'recharts'
+import { ApiFetch } from "../items/ApiFetch"
 
 const Body = styled.div`
   position: relative;
@@ -43,23 +44,31 @@ const submit = () => {
 
 }
 
+const getData = (user_id, report_id) => {
+  const scores =  ApiFetch(`/${user_id}/${report_id}/data`);
+  return scores[0].json_text;
+}
+
 export const Report = (props) => {
   const tab = props.tab;
+  const user_id = props.user_id;
+  const report_id = props.report_id;
   const [page, setPage] = useState();
 
   useEffect(() => {
     const pages = {
       'submit': <Submit />,
-      'result': <Result/>,
+      'result': <Result user_id={user_id} report_id={report_id}/>,
     };
-    
     setPage(pages[tab]);
-  }, [tab])
+    }, [tab]);
 
   return (
     <div>
       <Detail text='exp Report Contents' />
-      {page}
+      {
+        page
+      }
     </div>
   )
 }
@@ -79,6 +88,9 @@ const Submit = () => {
 }
 
 const Result = (props) => {
+  const user_id = props.user_id;
+  const report_id = props.report_id;
+  const user_reports = ApiFetch(`/${user_id}/${report_id}/data`);
   const data = [
     {subject: '文長-妥当性', A: 120, fullMark: 150},
     {subject: '語彙力', A: 98, fullMark: 150},
@@ -89,13 +101,16 @@ const Result = (props) => {
   ];
   const maxScore = 10;
   const yourScore = 7;
-
-  return (
-    <Body>
+  
+  return  user_reports.map((user_report, index) => {
+      return(
+        <Body>
+      <div>{JSON.stringify(user_report['json_text']['score'])}</div>
       <h3>- Your Report</h3>
       <hr></hr>
       <h4>・Your Score = [ {yourScore} / {maxScore} ]</h4>
       <p>report context</p>
+      <p></p>
       <h3>- Result Chart</h3>
       <hr></hr>
       <RadarChart 
@@ -118,11 +133,44 @@ const Result = (props) => {
       </RadarChart>
     <Info/>
     </Body>
-  )
+      )
+    })
+
+  // return user_report[0]['json_text'] === undefined ? <div>nodata</div> : (
+  // return (
+  //   <Body>
+  //     <div>{JSON.stringify(user_report[0])}</div>
+  //     <h3>- Your Report</h3>
+  //     <hr></hr>
+  //     <h4>・Your Score = [ {yourScore} / {maxScore} ]</h4>
+  //     <p>report context</p>
+  //     <p></p>
+  //     <h3>- Result Chart</h3>
+  //     <hr></hr>
+  //     <RadarChart 
+  //       cx={400}  // 要素の左端とチャートの中心点との距離(0にするとチャートの左半分が隠れる)
+  //       cy={200}  // 要素の上部とチャートの中心点との距離(0にするとチャートの上半分が隠れる)
+  //       outerRadius={150}  // レーダーチャート全体の大きさ  
+  //       width={800}  // レーダーチャートが記載される幅(この幅よりチャートが大きい場合、はみ出た箇所は表示されない)
+  //       height={400}   // レーダーチャートが記載される高さ
+  //       data={data}  // 表示対象のデータ
+  //     >
+  //       <PolarGrid />
+  //       <PolarAngleAxis dataKey='subject' />
+  //       <PolarRadiusAxis angle={30} domain={[0, 150]} />
+  //       <Radar
+  //                   dataKey="A"   // 表示する値と対応するdata内のキー
+  //                   stroke="#8884d8"  // レーダーの外枠の色
+  //                   fill="#8884d8"  // レーダー内の色
+  //                   fillOpacity={0.6}  // レーダー内の色の濃さ(1にすると濃さMAX)
+  //       />
+  //     </RadarChart>
+  //   <Info/>
+  //   </Body>
+  // )
 }
 
 const Info = (props) => {
-  const scores = [];
   const [datas, setDatas] = useState([
     {dName: '文字数', num: '10', exp: '=', ref: '-'},
     {dName: '平均文長', num: '10', exp: '=', ref: '文長-妥当性'},

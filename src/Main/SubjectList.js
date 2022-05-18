@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ApiFetch } from "../items/ApiFetch";
 import { SubjectItem } from "../items/SubjectItem";
 
 export const SubjectList = (props) => {
-  const userSubjects = props.subjects;
-  const [items, setItems] = useState(userSubjects);
+  const user_id = props.user_id;
+  const subjects = ApiFetch(`/${user_id}/subject`);
 
   return(
     <div>
       {
-      items.map((item, index) => {
-        return <SubjectItem title={item}/>
+      subjects.map((subject, index) => {
+        return <SubjectItem subject={subject}/>
       })
       }
     </div>

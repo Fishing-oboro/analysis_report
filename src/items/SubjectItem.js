@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ApiFetch } from "./ApiFetch";
 
 const SubjectContainer = styled.div`
   border-radius: 10px;
@@ -45,26 +47,22 @@ const Report = styled.li`
   position: relative;
 `
 
-const clickReport = () => {
-  
-}
-
 export const SubjectItem = (props) => {
-  const title = props.title;
-  const [reports, setReports] = useState(['1', '2', 3, 4]); 
+  const subject = props.subject;
+  const reports = ApiFetch(`/${subject['id']}/report`);
 
-  // props.titleを参照し、reportを取得
-  
+  const navigate = useNavigate();
+
   return (
     <SubjectContainer>
-      <Title>{title}</Title>
+      <Title>{subject['name']}</Title>
       <ReportContainer>
       {
         reports.map((report, index) => {
           return (
             <Report>
-              <SubTitle>{report}</SubTitle>
-              <ReportFooter>~ 2022/10/22</ReportFooter>
+                <SubTitle onClick={() => navigate(`/report`)}>{report['name']}</SubTitle>
+                <ReportFooter>~ 2022/10/22</ReportFooter>
             </Report>
           )
         })
