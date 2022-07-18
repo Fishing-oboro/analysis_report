@@ -109,7 +109,7 @@ export const MainPage = (props) => {
         </MainBody>
       </MainBodyContainer>
       <MainBodyFotter>
-        <div>footer</div>
+        {/* <div>footer</div> */}
       </MainBodyFotter>
     </div>
   )
