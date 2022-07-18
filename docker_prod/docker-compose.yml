@@ -6,10 +6,11 @@ services:
     build:
       context: ../
       dockerfile: docker_prod/Dockerfile
-      # args: 
-      #   - NODE_ENV=production
-      #   - REACT_APP_SERVICE_URL=${REACT_APP_SERVICE_URL}
+      args: 
+        - NODE_ENV=production
+        - REACT_APP_SERVICE_URL=http://localhost:3000
     volumes:
       - ..:/usr/src/
+      - /usr/src/node_modules
     ports:
       - 3000:80
