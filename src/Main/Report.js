@@ -4,6 +4,8 @@ import { Detail } from "../items/Detail"
 import {PolarAngleAxis, PolarGrid, PolarRadiusAxis,
    RadarChart, Radar} from 'recharts'
 import { ApiFetch } from "../items/ApiFetch"
+import { useNavigate, useParams } from "react-router-dom"
+// import axios from "axios"
 
 const Body = styled.div`
   position: relative;
@@ -40,10 +42,6 @@ const InfoTd = styled.td`
   padding: 10px 0;
 `
 
-const submit = () => {
-
-}
-
 const getData = (user_id, report_id) => {
   const scores =  ApiFetch(`/${user_id}/${report_id}/data`);
   return scores[0].json_text;
@@ -53,12 +51,13 @@ export const Report = (props) => {
   const tab = props.tab;
   const user_id = props.user_id;
   const report_id = props.report_id;
+  const user_reports = ApiFetch(`${user_id}/${report_id}/data`);
   const [page, setPage] = useState();
 
   useEffect(() => {
     const pages = {
-      'submit': <Submit />,
-      'result': <Result user_id={user_id} report_id={report_id}/>,
+      'submit': <Submit user_reports={user_reports}/>,
+      'result': <Result user_reports={user_reports}/>,
     };
     setPage(pages[tab]);
     }, [tab]);
@@ -73,24 +72,40 @@ export const Report = (props) => {
   )
 }
 
-const Submit = () => {
+const Submit = (props) => {
   const [text, setText] = useState('Please write Report');
+  const navigation = useNavigate();
+
+  const submit = () => {
+    // fastapiに送信＋値をRDSに保存
+    
+    // const uri = "http://localhost:8000/"
+    navigation(`/tsurube/result`);
+  
+    // return <Navigate to='/login'/>
+    // axios
+    //   .post(uri, {"text": text})
+    //   .then(res => {this.setState({
+  
+    //   })})
+  }
 
   return (
       <Body>
         <form onSubmit={submit}>
           <ReportArea value={text} onChange={(e) => setText(e.target.value)}></ReportArea>
           <br></br>
-          <FormButton>submit ok</FormButton>
+          <FormButton type='submit'>submit ok</FormButton>
         </form>
+        <button type='button' onClick={submit}>button</button>
       </Body>
   )
 }
 
 const Result = (props) => {
-  const user_id = props.user_id;
-  const report_id = props.report_id;
-  const user_reports = ApiFetch(`/${user_id}/${report_id}/data`);
+  // const user_id = props.user_id;
+  // const report_id = props.report_id;
+  const user_reports = props.user_reports
   const data = [
     {subject: '文長-妥当性', A: 120, fullMark: 150},
     {subject: '語彙力', A: 98, fullMark: 150},

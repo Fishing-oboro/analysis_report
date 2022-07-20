@@ -76,23 +76,25 @@ const Title = (props) => {
 }
 
 export const MainPage = (props) => {
-  const user = props.user;
+  // const user = props.user;
+  const tab = props.tab;
   const user_id = 1;
   const report_id = 1;
   const [page, setPage] = useState(<SubjectList user_id={user_id}/>);
 
   useEffect(() => {
     setPage(<SubjectList user_id={user_id}/>)
-  }, [user_id])
-
-  
+    if (tab !== undefined) {
+      setPage(<Report tab={tab} user_id={user_id} report_id={report_id}/>);
+    }
+  }, [user_id, tab])  
 
   return (
     <div>
       <SideBar>
         <SideItem>
           <Icon />
-          <div>username</div>
+          {/* <div>{user}</div> */}
           <h2>pageLink-test</h2>
           <ul>
             <li onClick={() => setPage(<SubjectList user_id={user_id}/>)}>main</li>

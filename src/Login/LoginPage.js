@@ -74,7 +74,8 @@ export const LoginPage = (props) => {
     e.preventDefault();
     // const userdata = ApiFetch(`/user?${userReq}=${userValue}&pass=${passValue}`);
     setLogined(true);
-    navigate(`/${userdata[0]['id']}/main`);
+    // navigate(`/${userdata[0]['id']}/main`);
+    navigate(`/tsurube/main`);
   }
 
   return (

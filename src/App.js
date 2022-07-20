@@ -69,7 +69,9 @@ export const Apptest = () => {
         <Route path="/forgot" element={<CreateAccount/>} />
         <Route path="/create-account" element={<Forgot/>} />
         <Route path='/:user/main' element={logined === true ? <MainPage user={user}/> : <Navigate to='/login'/>} />
-        <Route path='*' element={<div>Notfound</div>} />
+        <Route path='/:user/submit' element={logined === true ? <MainPage user={user} tab='submit'/> : <Navigate to='/login'/>} />
+        <Route path='/:user/result' element={logined === true ? <MainPage user={user} tab='result'/> : <Navigate to='/login'/>} />
+        <Route path='/*' element={<div>Notfound</div>} />
       </Routes>
     </BrowserRouter>
   )

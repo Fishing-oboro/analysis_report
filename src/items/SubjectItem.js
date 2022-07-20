@@ -60,8 +60,8 @@ export const SubjectItem = (props) => {
       {
         reports.map((report, index) => {
           return (
-            <Report>
-                <SubTitle onClick={() => navigate(`/report`)}>{report['name']}</SubTitle>
+            <Report onClick={this.setPage()}>
+                <SubTitle>{report['name']}</SubTitle>
                 <ReportFooter>~ 2022/10/22</ReportFooter>
             </Report>
           )
