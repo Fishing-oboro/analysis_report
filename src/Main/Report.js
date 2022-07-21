@@ -97,7 +97,6 @@ const Submit = (props) => {
           <br></br>
           <FormButton type='submit'>submit ok</FormButton>
         </form>
-        <button type='button' onClick={submit}>button</button>
       </Body>
   )
 }
