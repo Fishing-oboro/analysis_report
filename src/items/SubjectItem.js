@@ -48,8 +48,9 @@ const Report = styled.li`
 `
 
 export const SubjectItem = (props) => {
+  const user_id = props.user_id;
   const subject = props.subject;
-  const reports = ApiFetch(`/${subject['id']}/report`);
+  const reports = ApiFetch(`/db/${subject['id']}/report`);
 
   const navigate = useNavigate();
 
@@ -60,7 +61,7 @@ export const SubjectItem = (props) => {
       {
         reports.map((report, index) => {
           return (
-            <Report onClick={this.setPage()}>
+            <Report onClick={() => navigate(`/submit?user_id=${user_id}&report_id=${report['id']}`)}>
                 <SubTitle>{report['name']}</SubTitle>
                 <ReportFooter>~ 2022/10/22</ReportFooter>
             </Report>

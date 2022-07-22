@@ -15,3 +15,4 @@ RUN npm ci
 
 # #start app
 CMD ["npm", "start"]
+# CMD ["npm","run","dev"]

@@ -12,3 +12,18 @@ services:
       # - /usr/src/node_modules
     ports:
       - 3000:3000
+      # - 4000:3306
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../src:/usr/src/src
+    command: node /usr/src/src/server/index.js
+    # command: npm run server
+    ports:
+      - 3306:3306
+    

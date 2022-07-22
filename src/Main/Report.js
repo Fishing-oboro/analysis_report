@@ -5,6 +5,7 @@ import {PolarAngleAxis, PolarGrid, PolarRadiusAxis,
    RadarChart, Radar} from 'recharts'
 import { ApiFetch } from "../items/ApiFetch"
 import { useNavigate, useParams } from "react-router-dom"
+import axios from "axios"
 // import axios from "axios"
 
 const Body = styled.div`
@@ -51,12 +52,12 @@ export const Report = (props) => {
   const tab = props.tab;
   const user_id = props.user_id;
   const report_id = props.report_id;
-  const user_reports = ApiFetch(`${user_id}/${report_id}/data`);
+  const user_reports = ApiFetch(`/db/${user_id}/${report_id}/data`);
   const [page, setPage] = useState();
 
   useEffect(() => {
     const pages = {
-      'submit': <Submit user_reports={user_reports}/>,
+      'submit': <Submit user_id={user_id} report_id={report_id}/>,
       'result': <Result user_reports={user_reports}/>,
     };
     setPage(pages[tab]);
@@ -73,32 +74,57 @@ export const Report = (props) => {
 }
 
 const Submit = (props) => {
+  const user_id = props.user_id;
+  const report_id = props.report_id;
   const [text, setText] = useState('Please write Report');
+  const [result, setResult] = useState();
   const navigation = useNavigate();
 
-  const submit = () => {
+  const submit = (user_id, report_id, text) => {
     // fastapiに送信＋値をRDSに保存
+    // const data = ApiFetch(`/api/text/${text}`);
+
+    const getSingleDeviceRecord = (text) => {
+      return new Promise(async (resolve, reject) => {
+        try {
+            const res = await axios.get(`/api/texts/${text}`);
+            setResult(res);
+            resolve('success');
+        } catch (error) {
+          reject('error');
+        }
+      });
+    };
+
     
-    // const uri = "http://localhost:8000/"
-    navigation(`/tsurube/result`);
-  
-    // return <Navigate to='/login'/>
-    // axios
-    //   .post(uri, {"text": text})
-    //   .then(res => {this.setState({
-  
-    //   })})
+    // fetch(`/api/texts/${text}`, {method: 'GET'})
+    //       .then((res) => res.json())
+    //       .then((data) => {
+    //           setResult(data);
+    //     });  
+    getSingleDeviceRecord(text);  
+    
+    alert(JSON.stringify(result));
+
+    // fetch(`/db/result/post?user_id=${user_id}&report_id=${report_id}&json_text=${JSON.stringify(result)}`, {method: 'POST'}); 
+
+    navigation(`/result?user_id=${user_id}&report_id=${report_id}`);
   }
 
-  return (
-      <Body>
-        <form onSubmit={submit}>
-          <ReportArea value={text} onChange={(e) => setText(e.target.value)}></ReportArea>
-          <br></br>
-          <FormButton type='submit'>submit ok</FormButton>
-        </form>
-      </Body>
-  )
+    return (
+        <Body>
+            <ReportArea value={text} onChange={(e) => setText(e.target.value)}></ReportArea>
+            <br></br>
+            <FormButton onClick={() => submit(user_id, report_id, text)}>submit ok</FormButton>
+        </Body>
+        // <Body>
+        //   <form>
+        //     <ReportArea value={text} onChange={(e) => setText(e.target.value)}></ReportArea>
+        //     <br></br>
+        //     <FormButton onClick={() => submit(props, text)}>submit ok</FormButton>
+        //   </form>
+        // </Body>
+    )
 }
 
 const Result = (props) => {
@@ -113,39 +139,42 @@ const Result = (props) => {
     {subject: '主述-妥当性', A: 85, fullMark: 150},
     {subject: '構文-妥当性', A: 65, fullMark: 150},
   ];
+
   const maxScore = 10;
-  const yourScore = 7;
+  // const yourScore = 7;
   
   return  user_reports.map((user_report, index) => {
+      
       return(
         <Body>
-      <div>{JSON.stringify(user_report['json_text']['score'])}</div>
-      <h3>- Your Report</h3>
-      <hr></hr>
-      <h4>・Your Score = [ {yourScore} / {maxScore} ]</h4>
-      <p>report context</p>
-      <p></p>
-      <h3>- Result Chart</h3>
-      <hr></hr>
-      <RadarChart 
-        cx={400}  // 要素の左端とチャートの中心点との距離(0にするとチャートの左半分が隠れる)
-        cy={200}  // 要素の上部とチャートの中心点との距離(0にするとチャートの上半分が隠れる)
-        outerRadius={150}  // レーダーチャート全体の大きさ  
-        width={800}  // レーダーチャートが記載される幅(この幅よりチャートが大きい場合、はみ出た箇所は表示されない)
-        height={400}   // レーダーチャートが記載される高さ
-        data={data}  // 表示対象のデータ
-      >
-        <PolarGrid />
-        <PolarAngleAxis dataKey='subject' />
-        <PolarRadiusAxis angle={30} domain={[0, 150]} />
-        <Radar
-                    dataKey="A"   // 表示する値と対応するdata内のキー
-                    stroke="#8884d8"  // レーダーの外枠の色
-                    fill="#8884d8"  // レーダー内の色
-                    fillOpacity={0.6}  // レーダー内の色の濃さ(1にすると濃さMAX)
-        />
-      </RadarChart>
-    <Info/>
+          <div>{JSON.stringify(user_report['json_text']['score'])}</div>
+          <h3>- Your Report</h3>
+          <div>{JSON.stringify(user_report['json_text']['text'])}</div>
+          <hr></hr>
+          <h4>・Your Score = [ {JSON.stringify(user_report['json_text']['score'])} / {maxScore} ]</h4>
+          <p>report context</p>
+          <p></p>
+          <h3>- Result Chart</h3>
+          <hr></hr>
+          <RadarChart 
+            cx={400}  // 要素の左端とチャートの中心点との距離(0にするとチャートの左半分が隠れる)
+            cy={200}  // 要素の上部とチャートの中心点との距離(0にするとチャートの上半分が隠れる)
+            outerRadius={150}  // レーダーチャート全体の大きさ  
+            width={800}  // レーダーチャートが記載される幅(この幅よりチャートが大きい場合、はみ出た箇所は表示されない)
+            height={400}   // レーダーチャートが記載される高さ
+            data={data}  // 表示対象のデータ
+          >
+            <PolarGrid />
+            <PolarAngleAxis dataKey='subject' />
+            <PolarRadiusAxis angle={30} domain={[0, 150]} />
+            <Radar
+                        dataKey="A"   // 表示する値と対応するdata内のキー
+                        stroke="#8884d8"  // レーダーの外枠の色
+                        fill="#8884d8"  // レーダー内の色
+                        fillOpacity={0.6}  // レーダー内の色の濃さ(1にすると濃さMAX)
+            />
+          </RadarChart>
+        <Info json_text={user_report['json_text']}/>
     </Body>
       )
     })
@@ -185,17 +214,30 @@ const Result = (props) => {
 }
 
 const Info = (props) => {
+  const json_text = props.json_text
   const [datas, setDatas] = useState([
-    {dName: '文字数', num: '10', exp: '=', ref: '-'},
-    {dName: '平均文長', num: '10', exp: '=', ref: '文長-妥当性'},
-    {dName: '漢字使用率', num: '10', exp: '=', ref: '語彙力'},
-    {dName: '誤字脱字数', num: '10', exp: '=', ref: '語彙力'},
-    {dName: '使用単語数', num: '10', exp: '=', ref: '語彙力'},
-    {dName: '文末統一率', num: '10', exp: '=', ref: '文体-統一性'},
-    {dName: '重複表現数', num: '10', exp: '=', ref: '冗長性'},
-    {dName: '係り助詞平均数', num: '10', exp: '=', ref: '主述-妥当性'},
-    {dName: '係り受け平均距離', num: '10', exp: '=', ref: '構文-妥当性'},
+    {dName: '文字数', num: JSON.stringify(json_text['char_num']), exp: '=', ref: '-'},
+    {dName: '平均文長', num: JSON.stringify(json_text['sentence_num']), exp: '=', ref: '文長-妥当性'},
+    {dName: '漢字使用率', num: JSON.stringify(json_text['char_rate']), exp: '=', ref: '語彙力'},
+    {dName: '誤字脱字数', num: JSON.stringify(json_text['proofreading']), exp: '=', ref: '語彙力'},
+    {dName: '使用単語数', num: JSON.stringify(json_text['word_num']), exp: '=', ref: '語彙力'},
+    {dName: '文末統一率', num: JSON.stringify(json_text['end_unity']), exp: '=', ref: '文体-統一性'},
+    {dName: '重複表現数', num: JSON.stringify(json_text['dupli_num']), exp: '=', ref: '冗長性'},
+    {dName: '係り助詞平均数', num: JSON.stringify(json_text['bind_rate']), exp: '=', ref: '主述-妥当性'},
+    {dName: '係り受け平均距離', num: JSON.stringify(json_text['depend_mean']), exp: '=', ref: '構文-妥当性'},
   ]); 
+
+  // const [datas, setDatas] = useState([
+  //   {dName: '文字数', num: '10', exp: '=', ref: '-'},
+  //   {dName: '平均文長', num: '10', exp: '=', ref: '文長-妥当性'},
+  //   {dName: '漢字使用率', num: '10', exp: '=', ref: '語彙力'},
+  //   {dName: '誤字脱字数', num: '10', exp: '=', ref: '語彙力'},
+  //   {dName: '使用単語数', num: '10', exp: '=', ref: '語彙力'},
+  //   {dName: '文末統一率', num: '10', exp: '=', ref: '文体-統一性'},
+  //   {dName: '重複表現数', num: '10', exp: '=', ref: '冗長性'},
+  //   {dName: '係り助詞平均数', num: '10', exp: '=', ref: '主述-妥当性'},
+  //   {dName: '係り受け平均距離', num: '10', exp: '=', ref: '構文-妥当性'},
+  // ]); 
 
   return (
     <Body>

@@ -56,6 +56,7 @@ export const App = () => {
 
 export const Apptest = () => {
   const [user, setUser] = useState(null);
+  // const user = props.user
   const [logined, setLogined] = useState(true);
   return (
     <BrowserRouter>
@@ -64,14 +65,12 @@ export const Apptest = () => {
         <HeaderIcon />
       </TitleHeader>
       <Routes>
-        <Route path="/Home" element={<LoginPage />} />
-        <Route path="/login" element={<LoginPage func={setLogined}/>} />
+        <Route path="/*" element={<LoginPage func={setLogined}/>} />
         <Route path="/forgot" element={<CreateAccount/>} />
         <Route path="/create-account" element={<Forgot/>} />
-        <Route path='/:user/main' element={logined === true ? <MainPage user={user}/> : <Navigate to='/login'/>} />
-        <Route path='/:user/submit' element={logined === true ? <MainPage user={user} tab='submit'/> : <Navigate to='/login'/>} />
-        <Route path='/:user/result' element={logined === true ? <MainPage user={user} tab='result'/> : <Navigate to='/login'/>} />
-        <Route path='/*' element={<div>Notfound</div>} />
+        <Route path='/main' element={logined === true ? <MainPage /> : <Navigate to='/login'/>} />
+        <Route path='/submit' element={logined === true ? <MainPage tab='submit'/> : <Navigate to='/login'/>} />
+        <Route path='/result' element={logined === true ? <MainPage tab='result'/> : <Navigate to='/login'/>} />
       </Routes>
     </BrowserRouter>
   )

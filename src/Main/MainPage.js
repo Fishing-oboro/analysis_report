@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import {useEffect, useState} from 'react';
-import { SubjectItem } from '../items/SubjectItem';
 import { SubjectList } from './SubjectList';
 import { Report } from './Report';
 import { Link } from 'react-router-dom';
@@ -87,7 +86,7 @@ export const MainPage = (props) => {
     if (tab !== undefined) {
       setPage(<Report tab={tab} user_id={user_id} report_id={report_id}/>);
     }
-  }, [user_id, tab])  
+  }, [user_id, tab,report_id])  
 
   return (
     <div>
