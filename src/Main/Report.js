@@ -5,7 +5,6 @@ import {PolarAngleAxis, PolarGrid, PolarRadiusAxis,
    RadarChart, Radar} from 'recharts'
 import { ApiFetch } from "../items/ApiFetch"
 import { useNavigate, useParams } from "react-router-dom"
-import axios from "axios"
 // import axios from "axios"
 
 const Body = styled.div`
@@ -80,31 +79,22 @@ const Submit = (props) => {
   const [result, setResult] = useState();
   const navigation = useNavigate();
 
-  const submit = (user_id, report_id, text) => {
+  const submit = async (user_id, report_id, text) => {
     // fastapiに送信＋値をRDSに保存
     // const data = ApiFetch(`/api/text/${text}`);
 
-    const getSingleDeviceRecord = (text) => {
-      return new Promise(async (resolve, reject) => {
-        try {
-            const res = await axios.get(`/api/texts/${text}`);
-            setResult(res);
-            resolve('success');
-        } catch (error) {
-          reject('error');
-        }
+    const getapi = (text) => {
+      // await fetch(`/api/texts/${text}`, {method: 'GET'})
+      return fetch(`/api/texts/${text}`, {method: 'GET'})
+      .then((res) => res.json())
+      .then((data) => {
+          return data;
       });
-    };
+    }
 
+    const data = await getapi(text);
     
-    // fetch(`/api/texts/${text}`, {method: 'GET'})
-    //       .then((res) => res.json())
-    //       .then((data) => {
-    //           setResult(data);
-    //     });  
-    getSingleDeviceRecord(text);  
-    
-    alert(JSON.stringify(result));
+    alert(JSON.stringify(data));
 
     // fetch(`/db/result/post?user_id=${user_id}&report_id=${report_id}&json_text=${JSON.stringify(result)}`, {method: 'POST'}); 
 
