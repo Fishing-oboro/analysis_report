@@ -75,16 +75,13 @@ export const Report = (props) => {
 const Submit = (props) => {
   const user_id = props.user_id;
   const report_id = props.report_id;
-  const [text, setText] = useState('Please write Report');
-  const [result, setResult] = useState();
+  const [text, setText] = useState('Please write Report.');
   const navigation = useNavigate();
 
   const submit = async (user_id, report_id, text) => {
     // fastapiに送信＋値をRDSに保存
-    // const data = ApiFetch(`/api/text/${text}`);
 
     const getapi = (text) => {
-      // await fetch(`/api/texts/${text}`, {method: 'GET'})
       return fetch(`/api/texts/${text}`, {method: 'GET'})
       .then((res) => res.json())
       .then((data) => {
@@ -93,10 +90,11 @@ const Submit = (props) => {
     }
 
     const data = await getapi(text);
+    const result = JSON.stringify(data);
     
-    alert(JSON.stringify(data));
+    alert(`success get result: ${result}`);
 
-    // fetch(`/db/result/post?user_id=${user_id}&report_id=${report_id}&json_text=${JSON.stringify(result)}`, {method: 'POST'}); 
+    fetch(`/db/result/post?user_id=${user_id}&report_id=${report_id}&json_text=${result}`, {method: 'POST'});
 
     navigation(`/result?user_id=${user_id}&report_id=${report_id}`);
   }
@@ -107,20 +105,13 @@ const Submit = (props) => {
             <br></br>
             <FormButton onClick={() => submit(user_id, report_id, text)}>submit ok</FormButton>
         </Body>
-        // <Body>
-        //   <form>
-        //     <ReportArea value={text} onChange={(e) => setText(e.target.value)}></ReportArea>
-        //     <br></br>
-        //     <FormButton onClick={() => submit(props, text)}>submit ok</FormButton>
-        //   </form>
-        // </Body>
     )
 }
 
 const Result = (props) => {
-  // const user_id = props.user_id;
-  // const report_id = props.report_id;
-  const user_reports = props.user_reports
+  const user_reports = props.user_reports;
+  
+
   const data = [
     {subject: '文長-妥当性', A: 120, fullMark: 150},
     {subject: '語彙力', A: 98, fullMark: 150},
@@ -129,20 +120,15 @@ const Result = (props) => {
     {subject: '主述-妥当性', A: 85, fullMark: 150},
     {subject: '構文-妥当性', A: 65, fullMark: 150},
   ];
-
-  const maxScore = 10;
-  // const yourScore = 7;
   
   return  user_reports.map((user_report, index) => {
+      const json = JSON.parse(user_report['json_text']);
       
       return(
         <Body>
-          <div>{JSON.stringify(user_report['json_text']['score'])}</div>
           <h3>- Your Report</h3>
-          <div>{JSON.stringify(user_report['json_text']['text'])}</div>
           <hr></hr>
-          <h4>・Your Score = [ {JSON.stringify(user_report['json_text']['score'])} / {maxScore} ]</h4>
-          <p>report context</p>
+          <p>{json['text']}</p>
           <p></p>
           <h3>- Result Chart</h3>
           <hr></hr>
@@ -164,70 +150,26 @@ const Result = (props) => {
                         fillOpacity={0.6}  // レーダー内の色の濃さ(1にすると濃さMAX)
             />
           </RadarChart>
-        <Info json_text={user_report['json_text']}/>
+        <Info user_report={user_report}/>
     </Body>
       )
     })
-
-  // return user_report[0]['json_text'] === undefined ? <div>nodata</div> : (
-  // return (
-  //   <Body>
-  //     <div>{JSON.stringify(user_report[0])}</div>
-  //     <h3>- Your Report</h3>
-  //     <hr></hr>
-  //     <h4>・Your Score = [ {yourScore} / {maxScore} ]</h4>
-  //     <p>report context</p>
-  //     <p></p>
-  //     <h3>- Result Chart</h3>
-  //     <hr></hr>
-  //     <RadarChart 
-  //       cx={400}  // 要素の左端とチャートの中心点との距離(0にするとチャートの左半分が隠れる)
-  //       cy={200}  // 要素の上部とチャートの中心点との距離(0にするとチャートの上半分が隠れる)
-  //       outerRadius={150}  // レーダーチャート全体の大きさ  
-  //       width={800}  // レーダーチャートが記載される幅(この幅よりチャートが大きい場合、はみ出た箇所は表示されない)
-  //       height={400}   // レーダーチャートが記載される高さ
-  //       data={data}  // 表示対象のデータ
-  //     >
-  //       <PolarGrid />
-  //       <PolarAngleAxis dataKey='subject' />
-  //       <PolarRadiusAxis angle={30} domain={[0, 150]} />
-  //       <Radar
-  //                   dataKey="A"   // 表示する値と対応するdata内のキー
-  //                   stroke="#8884d8"  // レーダーの外枠の色
-  //                   fill="#8884d8"  // レーダー内の色
-  //                   fillOpacity={0.6}  // レーダー内の色の濃さ(1にすると濃さMAX)
-  //       />
-  //     </RadarChart>
-  //   <Info/>
-  //   </Body>
-  // )
 }
 
 const Info = (props) => {
-  const json_text = props.json_text
+  const user_report = props.user_report
+  const json = JSON.parse(user_report['json_text']);
   const [datas, setDatas] = useState([
-    {dName: '文字数', num: JSON.stringify(json_text['char_num']), exp: '=', ref: '-'},
-    {dName: '平均文長', num: JSON.stringify(json_text['sentence_num']), exp: '=', ref: '文長-妥当性'},
-    {dName: '漢字使用率', num: JSON.stringify(json_text['char_rate']), exp: '=', ref: '語彙力'},
-    {dName: '誤字脱字数', num: JSON.stringify(json_text['proofreading']), exp: '=', ref: '語彙力'},
-    {dName: '使用単語数', num: JSON.stringify(json_text['word_num']), exp: '=', ref: '語彙力'},
-    {dName: '文末統一率', num: JSON.stringify(json_text['end_unity']), exp: '=', ref: '文体-統一性'},
-    {dName: '重複表現数', num: JSON.stringify(json_text['dupli_num']), exp: '=', ref: '冗長性'},
-    {dName: '係り助詞平均数', num: JSON.stringify(json_text['bind_rate']), exp: '=', ref: '主述-妥当性'},
-    {dName: '係り受け平均距離', num: JSON.stringify(json_text['depend_mean']), exp: '=', ref: '構文-妥当性'},
+    {dName: '文字数', num: json['char_num'], exp: '=', ref: '-'},
+    {dName: '平均文長', num: json['sentence_num'], exp: '=', ref: '文長-妥当性'},
+    {dName: '漢字使用率', num: json['char_rate'], exp: '=', ref: '語彙力'},
+    {dName: '誤字脱字数', num: json['proofreading'], exp: '=', ref: '語彙力'},
+    {dName: '使用単語数', num: json['word_num'], exp: '=', ref: '語彙力'},
+    {dName: '文末統一率', num: json['end_unity'], exp: '=', ref: '文体-統一性'},
+    {dName: '重複表現数', num: json['dupli_num'], exp: '=', ref: '冗長性'},
+    {dName: '係り助詞平均数', num: json['bind_rate'], exp: '=', ref: '主述-妥当性'},
+    {dName: '係り受け平均距離', num: json['depend_mean'], exp: '=', ref: '構文-妥当性'},
   ]); 
-
-  // const [datas, setDatas] = useState([
-  //   {dName: '文字数', num: '10', exp: '=', ref: '-'},
-  //   {dName: '平均文長', num: '10', exp: '=', ref: '文長-妥当性'},
-  //   {dName: '漢字使用率', num: '10', exp: '=', ref: '語彙力'},
-  //   {dName: '誤字脱字数', num: '10', exp: '=', ref: '語彙力'},
-  //   {dName: '使用単語数', num: '10', exp: '=', ref: '語彙力'},
-  //   {dName: '文末統一率', num: '10', exp: '=', ref: '文体-統一性'},
-  //   {dName: '重複表現数', num: '10', exp: '=', ref: '冗長性'},
-  //   {dName: '係り助詞平均数', num: '10', exp: '=', ref: '主述-妥当性'},
-  //   {dName: '係り受け平均距離', num: '10', exp: '=', ref: '構文-妥当性'},
-  // ]); 
 
   return (
     <Body>

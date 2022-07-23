@@ -43,7 +43,7 @@
   app.post('/result/post', (req, res) => {
     connection.connect();
     connection.query(
-      'insert into `user_report` (user_id, report_id, json_text) values (user_id=?, report_id=?, json_text=?);',
+      'insert into `user_report` (user_id, report_id, json_text) values (?, ?, ?);',
       [req.query.user_id, req.query.report_id, req.query.json_text],
       function(err, results, fields){
         if(err){
@@ -54,20 +54,20 @@
     console.log('success');
   })
 
-  app.get('/user', (req, res) => {
-    connection.connect();
-    connection.query(
-      'select * from `user` where (name=? or email=?) and pass=?',
-      [req.query.user_name, req.query.email, req.query.pass],
-      function(err, results, fields){
-        if(err){
-          console.log('error');
-        }
-        res.json(results);
-      }
-    );
-    console.log('success');
-  });
+  // app.get('/user', (req, res) => {
+  //   connection.connect();
+  //   connection.query(
+  //     'select * from `user` where (name=? or email=?) and pass=?',
+  //     [req.query.user_name, req.query.email, req.query.pass],
+  //     function(err, results, fields){
+  //       if(err){
+  //         console.log('error');
+  //       }
+  //       res.json(results);
+  //     }
+  //   );
+  //   console.log('success');
+  // });
 
   app.get('/:user_id/subject', (req, res) => {
     const user_id = req.params['user_id'];
@@ -106,7 +106,7 @@
     const report_id = req.params['report_id'];
     connection.connect();
     connection.query(
-      'select * from `user_report` where user_id=? and report_id=?',
+      'select * from `user_report` where user_id=? and report_id=? limit 1;',
       [user_id, report_id],
       function(err, results, fields){
         if(err){

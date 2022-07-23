@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {useEffect, useState} from 'react';
 import { SubjectList } from './SubjectList';
 import { Report } from './Report';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Icon = styled.div`
   display: block;
@@ -77,8 +77,9 @@ const Title = (props) => {
 export const MainPage = (props) => {
   // const user = props.user;
   const tab = props.tab;
-  const user_id = 1;
-  const report_id = 1;
+  const params = new URLSearchParams(useLocation().search);
+  const user_id = params.get('user_id');
+  const report_id = params.get('report_id');
   const [page, setPage] = useState(<SubjectList user_id={user_id}/>);
 
   useEffect(() => {
@@ -94,7 +95,7 @@ export const MainPage = (props) => {
         <SideItem>
           <Icon />
           {/* <div>{user}</div> */}
-          <h2>pageLink-test</h2>
+          <h2>pageLink Field</h2>
           <ul>
             <li onClick={() => setPage(<SubjectList user_id={user_id}/>)}>main</li>
             <li onClick={() => setPage(<Report tab='submit' user_id={user_id} report_id={report_id}/>)}>submit</li>
@@ -105,7 +106,7 @@ export const MainPage = (props) => {
       </SideBar>
       <MainBodyContainer>
         <MainBody>
-        <Title text='show Current PageName' />
+        <Title text={`Current PageName "${tab}"`} />
         {page}
         </MainBody>
       </MainBodyContainer>
