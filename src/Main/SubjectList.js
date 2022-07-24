@@ -2,7 +2,6 @@ import { ApiFetch } from "../items/ApiFetch";
 import { SubjectItem } from "../items/SubjectItem";
 
 import Amplify, { API, graphqlOperation} from "aws-amplify"
-import awsconfig from "../aws-exports"
 import { queryRds } from "../graphql/queries";
 
 import React, { useState } from 'react';

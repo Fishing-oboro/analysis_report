@@ -6,7 +6,6 @@ import {PolarAngleAxis, PolarGrid, PolarRadiusAxis,
 import { ApiFetch } from "../items/ApiFetch"
 import { useNavigate, useParams } from "react-router-dom"
 import Amplify, { API, graphqlOperation} from "aws-amplify"
-import awsconfig from "../aws-exports"
 import { queryRds } from "../graphql/queries";
 // import axios from "axios"
 

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { ApiFetch } from "./ApiFetch";
 
 import Amplify, { API, graphqlOperation} from "aws-amplify"
-import awsconfig from "../aws-exports"
 import { queryRds } from "../graphql/queries";
 
 import React from 'react';
