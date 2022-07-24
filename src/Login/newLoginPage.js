@@ -1,4 +1,4 @@
-import { MainPage } from "./Main/MainPage";
+import { MainPage } from "../Main/MainPage";
 import styled from "styled-components";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
