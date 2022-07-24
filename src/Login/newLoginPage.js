@@ -46,36 +46,36 @@ Amplify.configure({
   aws_user_pools_web_client_id:  process.env.REACT_APP_AWS_USER_POOLS_CLIENT_ID,
 });
 
-// export const LoginPage2 = (props) => {
-//   return (
-//       <Authenticator>
-//         {({signOut, user}) => (
-//             <BrowserRouter>
-//             <TitleHeader>
-//               <Title>Analysis-Report</Title>
-//               <HeaderIcon />
-//             </TitleHeader>
-//               <Routes>
-//                 <Route path='/*' element={<MainPage user={user.name}/>} />
-//                 <Route path='/submit' element={<MainPage tab='submit' />} />
-//                 <Route path='/result' element={<MainPage tab='result' />} />
-//               </Routes>
-//             </BrowserRouter>
-//         )}
-//       </Authenticator>
-//   );
-// }
-
 export const LoginPage2 = (props) => {
-  //export default function App() {
   return (
       <Authenticator>
         {({signOut, user}) => (
-            <main>
-              <h1>Hello {user.username}</h1>
-              <button onClick={signOut}>Sign out</button>
-            </main>
+            <BrowserRouter>
+            <TitleHeader>
+              <Title>Analysis-Report</Title>
+              <HeaderIcon />
+            </TitleHeader>
+              <Routes>
+                <Route path='/*' element={<MainPage user={user.name}/>} />
+                <Route path='/submit' element={<MainPage tab='submit' />} />
+                <Route path='/result' element={<MainPage tab='result' />} />
+              </Routes>
+            </BrowserRouter>
         )}
       </Authenticator>
   );
 }
+
+// export const LoginPage2 = (props) => {
+//   //export default function App() {
+//   return (
+//       <Authenticator>
+//         {({signOut, user}) => (
+//             <main>
+//               <h1>Hello {user.username}</h1>
+//               <button onClick={signOut}>Sign out</button>
+//             </main>
+//         )}
+//       </Authenticator>
+//   );
+// }
