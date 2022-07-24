@@ -2,11 +2,11 @@ import { MainPage } from "../Main/MainPage";
 import styled from "styled-components";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-// import { Amplify } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 
 import { queryRds } from "../graphql/queries";
 
@@ -48,6 +48,10 @@ Amplify.configure({
   aws_cognito_region: process.env.REACT_APP_AWS_COGNITO_REGION,
   aws_user_pools_id: process.env.REACT_APP_AWS_USER_POOLS_ID,
   aws_user_pools_web_client_id:  process.env.REACT_APP_AWS_USER_POOLS_CLIENT_ID,
+  aws_appsync_graphqlEndpoint: process.env.REACT_APP_AWS_SYNC_GRAPHQL_ENDPOINT,
+  aws_appsync_region: process.env.REACT_APP_AWS_SYNC_REGION,
+  aws_appsync_authenticationType: process.env.REACT_APP_AWS_SYNC_AUTHENTICATION,
+  aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
 });
 
 // export const LoginPage2 = (props) => {
