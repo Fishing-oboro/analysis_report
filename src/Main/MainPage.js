@@ -78,6 +78,7 @@ const Title = (props) => {
 
 export const MainPage = (props) => {
   const tab = props.tab;
+  const signOut = props.signOut;
   const params = new URLSearchParams(useLocation().search);
   // const user_id = props.user !== undefined ? params.get('user_id') : props.user;
   const user_id = params.get('user_id');
@@ -102,7 +103,7 @@ export const MainPage = (props) => {
             <li onClick={() => setPage(<SubjectList user_id={user_id}/>)}>main</li>
             <li onClick={() => setPage(<Report tab='submit' user_id={user_id} report_id={report_id}/>)}>submit</li>
             <li onClick={() => setPage(<Report tab='result' user_id={user_id} report_id={report_id}/>)}>result</li>
-            <li><Link to='/login'>login</Link></li>
+            {/* <li onClick={signOut}></li> */}
           </ul>
         </SideItem>
       </SideBar>

@@ -64,7 +64,7 @@ export const LoginPage2 = (props) => {
               <HeaderIcon />
             </TitleHeader>
               <Routes>
-                <Route path='/*' element={<MainPage user={1}/>} />
+                <Route path='/*' element={<MainPage user={1} signOut={signOut}/>} />
                 <Route path='/submit' element={<MainPage tab='submit' />} />
                 <Route path='/result' element={<MainPage tab='result' />} />
               </Routes>
