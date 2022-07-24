@@ -58,7 +58,7 @@ export const SubjectItem = (props) => {
   // const reports = ApiFetch(`/db/${subject['id']}/report`);
   const [reports, setReports] = useState();
   API.graphql(graphqlOperation(queryRds, {
-                query: `select * from report where subject_id=${subject['id']};`
+                query: `select * from report where subject_id=${subject["id"]};`
       }))
       .then((evt) => {
         setReports(JSON.parse(evt.data.queryRds));
@@ -68,13 +68,13 @@ export const SubjectItem = (props) => {
 
   return (
     <SubjectContainer>
-      <Title>{subject['name']}</Title>
+      <Title>{subject["name"]}</Title>
       <ReportContainer>
       {
         reports.map((report, index) => {
           return (
-            <Report onClick={() => navigate(`/submit?user_id=${user_id}&report_id=${report['id']}`)}>
-                <SubTitle>{report['name']}</SubTitle>
+            <Report onClick={() => navigate(`/submit?user_id=${user_id}&report_id=${report["id"]}`)}>
+                <SubTitle>{report["name"]}</SubTitle>
                 <ReportFooter>~ 2022/10/22</ReportFooter>
             </Report>
           )

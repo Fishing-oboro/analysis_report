@@ -137,7 +137,7 @@ const Result = (props) => {
   ];
   
   return  user_reports.map((user_report, index) => {
-      const json = JSON.parse(user_report['json_text']);
+      const json = JSON.parse(user_report["json_text"]);
       
       return(
         <Body>
@@ -173,17 +173,17 @@ const Result = (props) => {
 
 const Info = (props) => {
   const user_report = props.user_report
-  const json = JSON.parse(user_report['json_text']);
+  const json = JSON.parse(user_report["json_text"]);
   const [datas, setDatas] = useState([
-    {dName: '文字数', num: json['char_num'], exp: '=', ref: '-'},
-    {dName: '平均文長', num: json['sentence_num'], exp: '=', ref: '文長-妥当性'},
-    {dName: '漢字使用率', num: json['char_rate'], exp: '=', ref: '語彙力'},
-    {dName: '誤字脱字数', num: json['proofreading'], exp: '=', ref: '語彙力'},
-    {dName: '使用単語数', num: json['word_num'], exp: '=', ref: '語彙力'},
-    {dName: '文末統一率', num: json['end_unity'], exp: '=', ref: '文体-統一性'},
-    {dName: '重複表現数', num: json['dupli_num'], exp: '=', ref: '冗長性'},
-    {dName: '係り助詞平均数', num: json['bind_rate'], exp: '=', ref: '主述-妥当性'},
-    {dName: '係り受け平均距離', num: json['depend_mean'], exp: '=', ref: '構文-妥当性'},
+    {dName: '文字数', num: json["char_num"], exp: '=', ref: '-'},
+    {dName: '平均文長', num: json["sentence_num"], exp: '=', ref: '文長-妥当性'},
+    {dName: '漢字使用率', num: json["char_rate"], exp: '=', ref: '語彙力'},
+    {dName: '誤字脱字数', num: json["proofreading"], exp: '=', ref: '語彙力'},
+    {dName: '使用単語数', num: json["word_num"], exp: '=', ref: '語彙力'},
+    {dName: '文末統一率', num: json["end_unity"], exp: '=', ref: '文体-統一性'},
+    {dName: '重複表現数', num: json["dupli_num"], exp: '=', ref: '冗長性'},
+    {dName: '係り助詞平均数', num: json["bind_rate"], exp: '=', ref: '主述-妥当性'},
+    {dName: '係り受け平均距離', num: json["depend_mean"], exp: '=', ref: '構文-妥当性'},
   ]); 
 
   return (
