@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ApiFetch } from "./ApiFetch";
 
-import Amplify, { API, graphqlOperation} from "aws-amplify"
+import { Amplify, API, graphqlOperation} from "aws-amplify"
 import { queryRds } from "../graphql/queries";
 
 import React from 'react';
@@ -51,6 +51,17 @@ const Report = styled.li`
   cursor: pointer;
   position: relative;
 `
+
+Amplify.configure({
+  aws_project_region: process.env.REACT_APP_AWS_PROJECT_REGION,
+  aws_cognito_region: process.env.REACT_APP_AWS_COGNITO_REGION,
+  aws_user_pools_id: process.env.REACT_APP_AWS_USER_POOLS_ID,
+  aws_user_pools_web_client_id:  process.env.REACT_APP_AWS_USER_POOLS_CLIENT_ID,
+  aws_appsync_graphqlEndpoint: process.env.REACT_APP_AWS_SYNC_GRAPHQL_ENDPOINT,
+  aws_appsync_region: process.env.REACT_APP_AWS_SYNC_REGION,
+  aws_appsync_authenticationType: process.env.REACT_APP_AWS_SYNC_AUTHENTICATION,
+  aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
+});
 
 export const SubjectItem = (props) => {
   const user_id = props.user_id;
