@@ -10,7 +10,7 @@ import { API, graphqlOperation } from "aws-amplify";
 
 import { queryRds } from "../graphql/queries";
 
-import React from 'react';
+import React, { useState } from 'react';
 
 const TitleHeader = styled.div`
   position: fixed;
@@ -54,45 +54,51 @@ Amplify.configure({
   aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
 });
 
-export const LoginPage2 = (props) => {
-  return (
-      <Authenticator>
-        {({signOut, user}) => (
-            <BrowserRouter>
-            <TitleHeader>
-              <Title>Analysis-Report</Title>
-              <HeaderIcon />
-            </TitleHeader>
-              <Routes>
-                <Route path='/*' element={<MainPage user={1} signOut={signOut}/>} />
-                <Route path='/submit' element={<MainPage tab='submit' />} />
-                <Route path='/result' element={<MainPage tab='result' />} />
-              </Routes>
-            </BrowserRouter>
-        )}
-      </Authenticator>
-  );
-}
-
 // export const LoginPage2 = (props) => {
-//   //export default function App() {
-
-//   const query = (evt) => {
-//     API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
-//         .then((evt) => {
-//             alert(evt.data.queryRds);
-//         });
-//   }
-
 //   return (
 //       <Authenticator>
 //         {({signOut, user}) => (
-//             <main>
-//               <h1>Hello {user.username}</h1>
-//               <button onClick={signOut}>Sign out</button>
-//               <button onClick={(evt) => query(evt)}>Query</button>
-//             </main>
+//             <BrowserRouter>
+//             <TitleHeader>
+//               <Title>Analysis-Report</Title>
+//               <HeaderIcon />
+//             </TitleHeader>
+//               <Routes>
+//                 <Route path='/*' element={<MainPage user={1} signOut={signOut}/>} />
+//                 <Route path='/submit' element={<MainPage tab='submit' />} />
+//                 <Route path='/result' element={<MainPage tab='result' />} />
+//               </Routes>
+//             </BrowserRouter>
 //         )}
 //       </Authenticator>
 //   );
 // }
+
+export const LoginPage2 = (props) => {
+  //export default function App() {
+    const [usera, setUser] = useState(null);
+    API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
+    .then((evt) => {
+        setUser(evt.data.queryRds);
+        alert(usera);
+    });
+
+  const query = (evt) => {
+    API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
+        .then((evt) => {
+            alert(evt.data.queryRds);
+        });
+  }
+
+  return (
+      <Authenticator>
+        {({signOut, user}) => (
+            <main>
+              <h1>Hello {user.username} {usera}</h1>
+              <button onClick={signOut}>Sign out</button>
+              <button onClick={(evt) => query(evt)}>Query</button>
+            </main>
+        )}
+      </Authenticator>
+  );
+}
