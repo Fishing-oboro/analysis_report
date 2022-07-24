@@ -44,6 +44,30 @@
     }
   },
   "Resources": {
+    "RdsProxyAccessPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "rds-proxy-access-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "rds-db:connect",
+              "Resource": "arn:aws:secretsmanager:us-east-1:734101272824:secret:Mysql-W19pyZ"
+            }
+          ]
+        }
+      }
+    },
     "LambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Metadata": {
@@ -131,6 +155,9 @@
     "LambdaExecutionRole": {
       "Type": "AWS::IAM::Role",
       "Properties": {
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+        ],
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
@@ -147,9 +174,6 @@
                 ]
               ]
             }
-          ],
-          "ManagedPolicyArns": [
-            "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
           ]
         },
         "AssumeRolePolicyDocument": {
@@ -233,30 +257,7 @@
         "Ref": "AWS::Region"
       }
     },
-    "RdsProxyAccessPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
-      "Type": "AWS::IAM::Policy",
-      "Properties": {
-        "PolicyName": "rds-proxy-access-policy",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": "rds-db:connect",
-              "Resource": "arn:aws:secretsmanager:us-east-1:734101272824:secret:Mysql-W19pyZ"
-            }
-          ]
-        }
-      }
-    },
+    
     "LambdaExecutionRole": {
       "Value": {
         "Ref": "LambdaExecutionRole"
