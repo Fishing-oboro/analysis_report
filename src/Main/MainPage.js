@@ -80,7 +80,7 @@ export const MainPage = (props) => {
   const tab = props.tab;
   const signOut = props.signOut;
   const params = new URLSearchParams(useLocation().search);
-  const user_id = props.user !== undefined ? params.get('user_id') : props.user;
+  const user_id = props.user === undefined ? params.get('user_id') : props.user;
   // const user_id = params.get('user_id');
   const report_id = params.get('report_id');
   const [page, setPage] = useState(<SubjectList user_id={user_id}/>);
