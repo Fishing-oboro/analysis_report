@@ -57,13 +57,13 @@ Amplify.configure({
   aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
 });
 
-export const Report = (props) => {
+export const Report = async (props) => {
   const tab = props.tab;
   const user_id = props.user_id;
   const report_id = props.report_id;
   // const user_reports = ApiFetch(`/db/${user_id}/${report_id}/data`);
   const [user_reports, setUser] = useState();
-  API.graphql(graphqlOperation(queryRds, {
+  await API.graphql(graphqlOperation(queryRds, {
                 query: `select * from user_report where user_id=${user_id} and report_id=${report_id} limit 1;`
       }))
       .then((evt) => {

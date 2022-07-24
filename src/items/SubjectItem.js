@@ -63,17 +63,17 @@ Amplify.configure({
   aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
 });
 
-export const SubjectItem = (props) => {
+export const SubjectItem = async (props) => {
   const user_id = props.user_id;
   const subject = props.subject;
   // const reports = ApiFetch(`/db/${subject['id']}/report`);
   const [reports, setReports] = useState();
-  API.graphql(graphqlOperation(queryRds, {
+  await API.graphql(graphqlOperation(queryRds, {
                 query: `select * from report where subject_id=${subject["id"]};`
       }))
       .then((evt) => {
         setReports(JSON.parse(evt.data.queryRds));
-  })
+  });
 
   const navigate = useNavigate();
 
