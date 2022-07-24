@@ -64,79 +64,79 @@ const FormContainer = styled.div`
   border: 2px solid gray;
 `
 
-// export const LoginPage = (props) => {
-//   const navigate = useNavigate();
-//   const setLogined = props.func;
-//   const [userValue, setUserValue] = useState('tsurube');
-//   const [passValue, setPassValue] = useState('pass');
+export const LoginPage = (props) => {
+  const navigate = useNavigate();
+  const setLogined = props.func;
+  const [userValue, setUserValue] = useState('tsurube');
+  const [passValue, setPassValue] = useState('pass');
   
 
 
-//   const submit = (props) => {
-//     // e.preventDefault();
-//     const username = props.userValue;
-//     const userpass = props.passValue;
+  const submit = (props) => {
+    // e.preventDefault();
+    const username = props.userValue;
+    const userpass = props.passValue;
     
-//     const userReq = userValue.match('/./') ? 'email' : `user_name`;
-//     // const userdata = ApiFetch(`/user?${userReq}=${userValue}&pass=${passValue}`);
+    const userReq = userValue.match('/./') ? 'email' : `user_name`;
+    // const userdata = ApiFetch(`/user?${userReq}=${userValue}&pass=${passValue}`);
 
-//     // if (userdata === true){
-//     //   setLogined(true);
-//     // }
+    // if (userdata === true){
+    //   setLogined(true);
+    // }
 
-//     setLogined(true);
-//     // navigate(`/${userdata[0]['id']}/main`);
-//     navigate(`/main?user_id=1`);
-//   }
+    setLogined(true);
+    // navigate(`/${userdata[0]['id']}/main`);
+    navigate(`/main?user_id=1`);
+  }
 
-//   return (
-//     <LoginContainer>
-//       <FormContainer>
-//         <LoginHeader>
-//           {/* <Icon></Icon> */}
-//           <h2>Login</h2>
-//         </LoginHeader>
-//         <LoginBody>
-//           <br></br>
-//           <LoginForm>
-//             <div>Your Email/userName</div>
-//             <input type='text' value={userValue} onChange={(e) => setUserValue(e.target.value)}></input>
-//             <br></br>
-//             <div>Your password</div>
-//             <input type='password' value={passValue} onChange={(e) => setPassValue(e.target.value)}></input>
-//             <br></br>
-//             <button onClick={() => submit(userValue, passValue)}>logined</button>
-//           </LoginForm>
-//           <br></br>
-          
-//           <div style={{display: 'flex' }}>
-//             <Link to='/create-account'>Create Account</Link>
-//             &nbsp;or&nbsp;
-//             <Link to='/forgot'>Forgot PassWord</Link>
-//           </div>
-//           <br></br>
-//         </LoginBody>
-//       </FormContainer>
-//     </LoginContainer>
-//   )
-// }
-
-Amplify.configure({
-  aws_project_region: process.env.REACT_APP_AWS_COGNITO_REGION,
-  aws_cognito_region: process.env.REACT_APP_AWS_USER_POOLS_ID,
-  aws_user_pools_id: process.env.REACT_APP_AWS_PROJECT_REGION,
-  aws_user_pools_web_client_id:  process.env.REACT_APP_AWS_USER_POOLS_CLIENT_ID,
-});
-
-export const LoginPage = (props) => {
-  const setLogined = props.func;
-  const setUser = props.user;
   return (
-      <Authenticator>
-        {({signOut, user}) => {
-          setLogined(true);
-          setUser(user);
-        }}
-      </Authenticator>
-  );
+    <LoginContainer>
+      <FormContainer>
+        <LoginHeader>
+          {/* <Icon></Icon> */}
+          <h2>Login</h2>
+        </LoginHeader>
+        <LoginBody>
+          <br></br>
+          <LoginForm>
+            <div>Your Email/userName</div>
+            <input type='text' value={userValue} onChange={(e) => setUserValue(e.target.value)}></input>
+            <br></br>
+            <div>Your password</div>
+            <input type='password' value={passValue} onChange={(e) => setPassValue(e.target.value)}></input>
+            <br></br>
+            <button onClick={() => submit(userValue, passValue)}>logined</button>
+          </LoginForm>
+          <br></br>
+          
+          <div style={{display: 'flex' }}>
+            <Link to='/create-account'>Create Account</Link>
+            &nbsp;or&nbsp;
+            <Link to='/forgot'>Forgot PassWord</Link>
+          </div>
+          <br></br>
+        </LoginBody>
+      </FormContainer>
+    </LoginContainer>
+  )
 }
+
+// Amplify.configure({
+//   aws_project_region: process.env.REACT_APP_AWS_COGNITO_REGION,
+//   aws_cognito_region: process.env.REACT_APP_AWS_USER_POOLS_ID,
+//   aws_user_pools_id: process.env.REACT_APP_AWS_PROJECT_REGION,
+//   aws_user_pools_web_client_id:  process.env.REACT_APP_AWS_USER_POOLS_CLIENT_ID,
+// });
+
+// export const LoginPage = (props) => {
+//   const setLogined = props.func;
+//   const setUser = props.user;
+//   return (
+//       <Authenticator>
+//         {({signOut, user}) => {
+//           setLogined(true);
+//           setUser(user);
+//         }}
+//       </Authenticator>
+//   );
+// }
