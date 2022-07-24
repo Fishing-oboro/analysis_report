@@ -14,6 +14,7 @@ export type AmplifyDependentResourcesAttributes = {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
+            "RdsProxyAccessPolicy": "string",
             "LambdaExecutionRole": "string"
         }
     }

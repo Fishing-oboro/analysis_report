@@ -57,7 +57,7 @@ export const App = () => {
 }
 
 export const Apptest = () => {
-  const [logined, setLogined] = useState(true);
+  const [logined, setLogined] = useState(false);
   const [user, setUser] = useState(null);
 
   return (

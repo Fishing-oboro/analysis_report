@@ -148,7 +148,7 @@
               ]
             }
           ],
-          "ManagedPolicyArns": [ 
+          "ManagedPolicyArns": [
             "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
           ]
         },
@@ -231,6 +231,30 @@
     "Region": {
       "Value": {
         "Ref": "AWS::Region"
+      }
+    },
+    "RdsProxyAccessPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "rds-proxy-access-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "rds-db:connect",
+              "Resource": "arn:aws:secretsmanager:us-east-1:734101272824:secret:Mysql-W19pyZ"
+            }
+          ]
+        }
       }
     },
     "LambdaExecutionRole": {
