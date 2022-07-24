@@ -8,7 +8,6 @@ import '@aws-amplify/ui-react/styles.css';
 
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 
-import awsconfig from "../aws-exports";
 import { queryRds } from "../graphql/queries";
 
 import React from 'react';
