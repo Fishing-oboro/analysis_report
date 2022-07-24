@@ -1,8 +1,8 @@
-import { createContext, useContext, useState } from "react";
+import { useState } from "react";
 import { MainPage } from "./Main/MainPage";
 import styled from "styled-components";
 import { LoginPage } from "./Login/LoginPage";
-import { BrowserRouter, Route, Routes , Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes , Navigate} from 'react-router-dom';
 import { CreateAccount } from "./Login/CreateAccount";
 import { Forgot } from "./Login/Forgot";
 
@@ -55,23 +55,25 @@ export const App = () => {
 }
 
 export const Apptest = () => {
-  const [user, setUser] = useState(null);
   // const user = props.user
-  const [logined, setLogined] = useState(true);
+  const [logined, setLogined] = useState(false);
+
   return (
     <BrowserRouter>
       <TitleHeader>
         <Title>Analysis-Report</Title>
         <HeaderIcon />
       </TitleHeader>
-      <Routes>
-        <Route path="/*" element={<LoginPage func={setLogined}/>} />
-        <Route path="/forgot" element={<CreateAccount/>} />
-        <Route path="/create-account" element={<Forgot/>} />
-        <Route path='/main' element={logined === true ? <MainPage /> : <Navigate to='/login'/>} />
-        <Route path='/submit' element={logined === true ? <MainPage tab='submit'/> : <Navigate to='/login'/>} />
-        <Route path='/result' element={logined === true ? <MainPage tab='result'/> : <Navigate to='/login'/>} />
-      </Routes>
+      {
+        logined === true ? 
+        <Routes>
+          <Route path="/*" element={<LoginPage func={setLogined}/>} />
+          <Route path='/main' element={<MainPage />} />
+          <Route path='/submit' element={<MainPage tab='submit'/>} />
+          <Route path='/result' element={<MainPage tab='result'/>} />
+        </Routes>
+       : <LoginPage func={setLogined}/>
+      }
     </BrowserRouter>
   )
 }
