@@ -10,8 +10,12 @@ exports.handler = async (event) => {
     password : process.env.db_password
   })
 
+//   const [rows, fields] = await connection.execute(event.arguments.query)
+//   console.log(rows)
+//   await connection.end()
+//   return rows
+
   const [rows, fields] = await connection.execute(event.arguments.query)
-  console.log(rows)
   await connection.end()
-  return rows
+  return JSON.stringify(rows)
 }
