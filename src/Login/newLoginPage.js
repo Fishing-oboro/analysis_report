@@ -56,7 +56,7 @@ export const LoginPage2 = (props) => {
               <HeaderIcon />
             </TitleHeader>
               <Routes>
-                <Route path='/*' element={<MainPage user={user.name}/>} />
+                <Route path='/*' element={<MainPage user={1}/>} />
                 <Route path='/submit' element={<MainPage tab='submit' />} />
                 <Route path='/result' element={<MainPage tab='result' />} />
               </Routes>
