@@ -46,11 +46,6 @@ const InfoTd = styled.td`
   padding: 10px 0;
 `
 
-const getData = (user_id, report_id) => {
-  const scores =  ApiFetch(`/${user_id}/${report_id}/data`);
-  return scores[0].json_text;
-}
-
 export const Report = (props) => {
   const tab = props.tab;
   const user_id = props.user_id;
