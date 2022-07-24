@@ -3,7 +3,6 @@ import {useEffect, useState} from 'react';
 import { SubjectList } from './SubjectList';
 import { Report } from './Report';
 import { Link, useLocation } from 'react-router-dom';
-import Amplify from 'aws-amplify';
 
 import React from 'react';
 

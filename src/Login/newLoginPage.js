@@ -1,10 +1,6 @@
-import { useState } from "react";
 import { MainPage } from "./Main/MainPage";
 import styled from "styled-components";
-import { LoginPage } from "./Login/LoginPage";
-import { BrowserRouter, Route, Routes , Navigate} from 'react-router-dom';
-import { CreateAccount } from "./Login/CreateAccount";
-import { Forgot } from "./Login/Forgot";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';

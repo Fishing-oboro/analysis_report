@@ -130,15 +130,3 @@ export const LoginPage = (props) => {
 //   aws_user_pools_web_client_id:  process.env.REACT_APP_AWS_USER_POOLS_CLIENT_ID,
 // });
 
-// export const LoginPage = (props) => {
-//   const setLogined = props.func;
-//   const setUser = props.user;
-//   return (
-//       <Authenticator>
-//         {({signOut, user}) => {
-//           setLogined(true);
-//           setUser(user);
-//         }}
-//       </Authenticator>
-//   );
-// }
