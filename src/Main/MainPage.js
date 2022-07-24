@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import { SubjectList } from './SubjectList';
 import { Report } from './Report';
 import { Link, useLocation } from 'react-router-dom';
+import Amplify from 'aws-amplify';
 
 const Icon = styled.div`
   display: block;
@@ -75,10 +76,9 @@ const Title = (props) => {
 }
 
 export const MainPage = (props) => {
-  // const user = props.user;
   const tab = props.tab;
   const params = new URLSearchParams(useLocation().search);
-  const user_id = params.get('user_id');
+  const user_id = props.user !== undefined ? params.get('user_id') : props.user;
   const report_id = params.get('report_id');
   const [page, setPage] = useState(<SubjectList user_id={user_id}/>);
 

@@ -11,8 +11,7 @@ ENV PATH /usr/src/node_modules.bin:$PATH
 COPY package*.json ./
 
 # #npm install
-RUN npm ci
+RUN npm install
 
 # #start app
 CMD ["npm", "start"]
-# CMD ["npm","run","dev"]

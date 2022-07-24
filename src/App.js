@@ -55,8 +55,8 @@ export const App = () => {
 }
 
 export const Apptest = () => {
-  // const user = props.user
   const [logined, setLogined] = useState(false);
+  const [user, setUser] = useState(null);
 
   return (
     <BrowserRouter>
@@ -67,10 +67,10 @@ export const Apptest = () => {
       {
         logined === true ? 
         <Routes>
-          <Route path="/*" element={<LoginPage func={setLogined}/>} />
-          <Route path='/main' element={<MainPage />} />
-          <Route path='/submit' element={<MainPage tab='submit'/>} />
-          <Route path='/result' element={<MainPage tab='result'/>} />
+          <Route path='/*' element={<MainPage user={user}/>} />
+          <Route path='/submit' element={<MainPage tab='submit' />} />
+          <Route path='/result' element={<MainPage tab='result' />} />
+          <Route path="/login" element={<LoginPage func={setLogined} user={setUser}/>} />
         </Routes>
        : <LoginPage func={setLogined}/>
       }
