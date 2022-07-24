@@ -7,6 +7,7 @@ import { CreateAccount } from "./Login/CreateAccount";
 import { Forgot } from "./Login/Forgot";
 
 import React from 'react';
+import { LoginPage2 } from "./Login/newLoginPage";
 
 const TitleHeader = styled.div`
   position: fixed;
@@ -61,22 +62,23 @@ export const Apptest = () => {
   const [user, setUser] = useState(null);
 
   return (
-    <BrowserRouter>
-      <TitleHeader>
-        <Title>Analysis-Report</Title>
-        <HeaderIcon />
-      </TitleHeader>
-      {
-        logined === true ? 
-        <Routes>
-          <Route path='/*' element={<MainPage user={user}/>} />
-          <Route path='/submit' element={<MainPage tab='submit' />} />
-          <Route path='/result' element={<MainPage tab='result' />} />
-          <Route path="/login" element={<LoginPage func={setLogined} user={setUser}/>} />
-        </Routes>
-       : <LoginPage func={setLogined}/>
-      }
-    </BrowserRouter>
+    <LoginPage2/>
+    // <BrowserRouter>
+    //   <TitleHeader>
+    //     <Title>Analysis-Report</Title>
+    //     <HeaderIcon />
+    //   </TitleHeader>
+    //   {
+    //     logined === true ? 
+    //     <Routes>
+    //       <Route path='/*' element={<MainPage user={user}/>} />
+    //       <Route path='/submit' element={<MainPage tab='submit' />} />
+    //       <Route path='/result' element={<MainPage tab='result' />} />
+    //       <Route path="/login" element={<LoginPage func={setLogined} user={setUser}/>} />
+    //     </Routes>
+    //    : <LoginPage func={setLogined} user={setUser}/>
+    //   }
+    // </BrowserRouter>
   )
 }
 
