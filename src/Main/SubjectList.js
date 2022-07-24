@@ -14,7 +14,7 @@ export const SubjectList = (props) => {
                 query: `select * from subject where id in (select subject_id from user_subject where user_id=${user_id} );`
       }))
       .then((evt) => {
-      setSubject(evt.data.queryRds);
+      setSubject(JSON.parse(evt.data.queryRds));
   })
 
   return(

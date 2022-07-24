@@ -61,7 +61,7 @@ export const Report = (props) => {
                 query: `select * from user_report where user_id=${user_id} and report_id=${report_id} limit 1;`
       }))
       .then((evt) => {
-      setUser(evt.data.queryRds);
+      setUser(JSON.parse(evt.data.queryRds));
   })
   const [page, setPage] = useState();
 

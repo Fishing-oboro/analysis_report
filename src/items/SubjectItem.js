@@ -61,7 +61,7 @@ export const SubjectItem = (props) => {
                 query: `select * from report where subject_id=${subject['id']};`
       }))
       .then((evt) => {
-        setReports(evt.data.queryRds);
+        setReports(JSON.parse(evt.data.queryRds));
   })
 
   const navigate = useNavigate();
