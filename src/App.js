@@ -58,8 +58,8 @@ export const App = () => {
 }
 
 export const Apptest = () => {
-  // const [logined, setLogined] = useState(false);
-  // const [user, setUser] = useState(null);
+  const [logined, setLogined] = useState(false);
+  const [user, setUser] = useState(null);
 
   return (
     <LoginPage2/>
