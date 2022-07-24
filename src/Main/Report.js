@@ -7,6 +7,8 @@ import { ApiFetch } from "../items/ApiFetch"
 import { useNavigate, useParams } from "react-router-dom"
 // import axios from "axios"
 
+import React from 'react';
+
 const Body = styled.div`
   position: relative;
 `

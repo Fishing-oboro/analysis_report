@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Routes , Navigate} from 'react-router-dom';
 import { CreateAccount } from "./Login/CreateAccount";
 import { Forgot } from "./Login/Forgot";
 
+import React from 'react';
+
 const TitleHeader = styled.div`
   position: fixed;
   overflow: auto;

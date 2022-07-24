@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
+import React from 'react';
+
 const LoadDiv = styled.div`
   padding: 36px;
 `

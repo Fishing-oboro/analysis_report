@@ -7,6 +7,8 @@ import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
+import React from 'react';
+
 const Icon = styled.div`
   display: block;
   margin-top: auto;

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
 import { ApiFetch } from "../items/ApiFetch";
 import { SubjectItem } from "../items/SubjectItem";
+
+import React from 'react';
 
 export const SubjectList = (props) => {
   const user_id = props.user_id;

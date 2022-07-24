@@ -5,6 +5,8 @@ import { Report } from './Report';
 import { Link, useLocation } from 'react-router-dom';
 import Amplify from 'aws-amplify';
 
+import React from 'react';
+
 const Icon = styled.div`
   display: block;
   margin-left: auto;
