@@ -1,0 +1,29 @@
+{
+  "lambdaLayers": [
+    {
+      "type": "ProjectLayer",
+      "resourceName": "analysisreportlayerfa173a68",
+      "env": "staging",
+      "version": "Always choose latest version",
+      "isLatestVersionSelected": true
+    }
+  ],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "dbHost",
+      "environmentVariableName": "db_host"
+    },
+    {
+      "cloudFormationParameterName": "dbSchema",
+      "environmentVariableName": "db_schema"
+    },
+    {
+      "cloudFormationParameterName": "dbUsername",
+      "environmentVariableName": "db_username"
+    },
+    {
+      "cloudFormationParameterName": "dbPassword",
+      "environmentVariableName": "db_password"
+    }
+  ]
+}

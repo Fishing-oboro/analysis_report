@@ -1,0 +1,12 @@
+{
+  "name": "rds-xray-js-lib",
+  "description": "NPM dependencies for RDS access with XRAY support",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "aws-xray-sdk-core": "2.4.0",
+    "aws-xray-sdk-mysql": "2.4.0",
+    "mysql2": "2.1.0"
+  },
+  "scripts": {}
+}

@@ -1,0 +1,31 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify92e4471649344-staging-61028-authRole",
+      "UnauthRoleArn": "arn:aws:iam::734101272824:role/amplify-amplify92e4471649344-staging-61028-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::734101272824:role/amplify-amplify92e4471649344-staging-61028-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-amplify92e4471649344-staging-61028-deployment",
+      "UnauthRoleName": "amplify-amplify92e4471649344-staging-61028-unauthRole",
+      "StackName": "amplify-amplify92e4471649344-staging-61028",
+      "StackId": "arn:aws:cloudformation:us-east-1:734101272824:stack/amplify-amplify92e4471649344-staging-61028/50f43b50-0b17-11ed-ab83-0a53a9a1c677",
+      "AmplifyAppId": "dkjyjz8r48oow"
+    },
+    "categories": {
+      "function": {
+        "analysisreportd88aab76": {
+          "dbHost": "analysisdb.chqgwrhwhoof.us-east-1.rds.amazonaws.com",
+          "dbSchema": "my_database",
+          "dbUsername": "admin",
+          "dbPassword": "AnalysisReport",
+          "deploymentBucketName": "amplify-amplify92e4471649344-staging-61028-deployment",
+          "s3Key": "amplify-builds/analysisreportd88aab76-4e314a344e3858323350-build.zip"
+        },
+        "analysisreportlayerfa173a68": {
+          "deploymentBucketName": "amplify-amplify92e4471649344-staging-61028-deployment",
+          "s3Key": "amplify-builds/analysisreportlayerfa173a68-LambdaLayerVersion8be112c8-build.zip"
+        }
+      }
+    }
+  }
+}

@@ -3,6 +3,10 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ApiFetch } from "./ApiFetch";
 
+import Amplify, { API, graphqlOperation} from "aws-amplify"
+import awsconfig from "../aws-exports"
+import { queryRds } from "../graphql/queries";
+
 import React from 'react';
 
 const SubjectContainer = styled.div`
@@ -52,7 +56,14 @@ const Report = styled.li`
 export const SubjectItem = (props) => {
   const user_id = props.user_id;
   const subject = props.subject;
-  const reports = ApiFetch(`/db/${subject['id']}/report`);
+  // const reports = ApiFetch(`/db/${subject['id']}/report`);
+  const [reports, setReports] = useState();
+  API.graphql(graphqlOperation(queryRds, {
+                query: `select * from report where subject_id=${subject['id']};`
+      }))
+      .then((evt) => {
+        setReports(evt.data.queryRds);
+  })
 
   const navigate = useNavigate();
 

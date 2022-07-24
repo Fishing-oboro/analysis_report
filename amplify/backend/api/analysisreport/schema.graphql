@@ -1,0 +1,3 @@
+type Query {
+  queryRds(query: String): String @function(name: "analysisreportd88aab76-${env}")
+}

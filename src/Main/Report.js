@@ -5,6 +5,9 @@ import {PolarAngleAxis, PolarGrid, PolarRadiusAxis,
    RadarChart, Radar} from 'recharts'
 import { ApiFetch } from "../items/ApiFetch"
 import { useNavigate, useParams } from "react-router-dom"
+import Amplify, { API, graphqlOperation} from "aws-amplify"
+import awsconfig from "../aws-exports"
+import { queryRds } from "../graphql/queries";
 // import axios from "axios"
 
 import React from 'react';
@@ -53,7 +56,14 @@ export const Report = (props) => {
   const tab = props.tab;
   const user_id = props.user_id;
   const report_id = props.report_id;
-  const user_reports = ApiFetch(`/db/${user_id}/${report_id}/data`);
+  // const user_reports = ApiFetch(`/db/${user_id}/${report_id}/data`);
+  const [user_reports, setUser] = useState();
+  API.graphql(graphqlOperation(queryRds, {
+                query: `select * from user_report where user_id=${user_id} and report_id=${report_id} limit 1;`
+      }))
+      .then((evt) => {
+      setUser(evt.data.queryRds);
+  })
   const [page, setPage] = useState();
 
   useEffect(() => {
@@ -96,8 +106,12 @@ const Submit = (props) => {
     
     alert(`success get result: ${result}`);
 
-    fetch(`/db/result/post?user_id=${user_id}&report_id=${report_id}&json_text=${result}`, {method: 'POST'});
-
+    // fetch(`/db/result/post?user_id=${user_id}&report_id=${report_id}&json_text=${result}`, {method: 'POST'});
+    API.graphql(graphqlOperation(queryRds, {
+                query: `insert into user_report (user_id, report_id, json_text) values (${user_id}, ${report_id}, ${result});`
+              })
+    )
+    
     navigation(`/result?user_id=${user_id}&report_id=${report_id}`);
   }
 

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "analysisreport",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\turib\\NodeTest\\analysis_report\\amplify\\backend\\api\\analysisreport\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}
