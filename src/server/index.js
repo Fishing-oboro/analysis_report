@@ -2,26 +2,15 @@
   const mysql = require('mysql2');
   const app = express();
   const port = process.env.PORT || 4000;
-
-  // process.on('uncaughtException', function (err) {
-  //   console.log(err);
-  // }); 
-
+  
   const connection = mysql.createConnection({
     // host: 'web',
-    host: 'localhost',
-    user: 'testuser001',
-    password: 'Analysis-Report0904',
-    database: 'analysis_report'
+    host: process.env.MYSEL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
   });
-
-  // const connection = mysql.createConnection({
-  //   host: 'database-1.czz8nkevqibh.us-east-1.rds.amazonaws.com',
-  //   user: 'admin',
-  //   password: 'analysis-report',
-  //   database: 'analysis_report'
-  // });
-
+  
   app.get('/message', (req, res) => {
     res.json(req.params);
   })
@@ -53,21 +42,6 @@
     );
     console.log('success');
   })
-
-  // app.get('/user', (req, res) => {
-  //   connection.connect();
-  //   connection.query(
-  //     'select * from `user` where (name=? or email=?) and pass=?',
-  //     [req.query.user_name, req.query.email, req.query.pass],
-  //     function(err, results, fields){
-  //       if(err){
-  //         console.log('error');
-  //       }
-  //       res.json(results);
-  //     }
-  //   );
-  //   console.log('success');
-  // });
 
   app.get('/:user_id/subject', (req, res) => {
     const user_id = req.params['user_id'];

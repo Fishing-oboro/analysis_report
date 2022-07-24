@@ -1,17 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
-
-
-// export const ApiFetch = () => {
-//   // const uri = props.uri;
-//   const baseuri = 'http://localhost:4000/';
-//   const [posts, setPosts] = useState([]);
-
-//   fetch(`${baseuri}`, {method: 'GET'})
-//        .then(response => response.json())
-//        .then(data => setPosts(data));
-
-//   return posts;
-// }
+import { useEffect, useState } from "react";
 
 export const ApiFetch = (url) => {
   const uri = url;
