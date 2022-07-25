@@ -103,6 +103,7 @@ export const LoginPage2 = (props) => {
                 })
               } */}
               <button onClick={signOut}>Sign out</button>
+              <button onClick={fetchData}>Sign out</button>
             </main>
         )}
       </Authenticator>
