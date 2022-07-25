@@ -75,13 +75,13 @@ Amplify.configure({
 //   );
 // }
 
-export const LoginPage2 = (props) => {
+export const LoginPage2 = async (props) => {
   //export default function App() {
     const [query, setQuery] = useState();
     const [data, setData] = useState();
 
-    const fetchData = async () => {
-      await API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
+    const fetchData = () => {
+      API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
                         .then((event) => {
                           setQuery(event.data.queryRds);
                           alert(query);
@@ -90,7 +90,7 @@ export const LoginPage2 = (props) => {
       return JSON.parse(query);
     }
 
-    setData(fetchData());
+    await setData(fetchData());
 
 
   return (
