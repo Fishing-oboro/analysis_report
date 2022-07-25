@@ -12,6 +12,7 @@ import { queryRds } from "../graphql/queries";
 
 import React, { useState } from 'react';
 import { useEffect } from "react";
+import { GraphApi } from "../items/GraphApi";
 
 const TitleHeader = styled.div`
   position: fixed;
@@ -76,41 +77,22 @@ Amplify.configure({
 // }
 
 export const LoginPage2 = (props) => {
-    const [query, setQuery] = useState();
-    const [data, setData] = useState();
-
     const text = 'select * from subject'
-
-    const fetchData = async (text) => {
-      await API.graphql(graphqlOperation(queryRds, { query: text }))
-                        .then((event) => {
-                          setQuery(event.data.queryRds);
-                          alert(query);
-                        });
-    }
-
-    // useEffect(() => {
-    //   setData(JSON.parse(query));
-    // }, [query])
+    const data = GraphApi(text);
 
   return (
       <Authenticator>
-        {({signOut, user}) => {
-          setData(JSON.parse(query));
-
-          return (
+        {({signOut, user}) => (
             <main>
-              <h1>Hello {user.username} {query}</h1>
-              {
+              <h1>Hello {user.username} {data}</h1>
+              {/* {
                 data.map((a) => {
                   return <h1>Hello {user.username} {a}</h1>
                 })
-              }
+              } */}
               <button onClick={signOut}>Sign out</button>
-              <button onClick={fetchData(text)}>fetchData</button>
             </main>
-            );
-        }}
+          )}
       </Authenticator>
   );
 }
