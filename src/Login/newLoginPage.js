@@ -76,26 +76,29 @@ Amplify.configure({
 // }
 
 export const LoginPage2 = (props) => {
-  //export default function App() {
-    const [query, setQuery] = useState("");
-    const [data, setData] = useState([]);
+    const [query, setQuery] = useState();
+    const [data, setData] = useState();
 
-    const fetchData = () => {
-      API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
+    const text = 'select * from subject'
+
+    const fetchData = async (text) => {
+      await API.graphql(graphqlOperation(queryRds, { query: text }))
                         .then((event) => {
                           setQuery(event.data.queryRds);
                           alert(query);
                         });
-      
-      return JSON.parse(query);
     }
 
-    setData(fetchData());
-
+    // useEffect(() => {
+    //   setData(JSON.parse(query));
+    // }, [query])
 
   return (
       <Authenticator>
-        {({signOut, user}) => (
+        {({signOut, user}) => {
+          setData(JSON.parse(query));
+
+          return (
             <main>
               <h1>Hello {user.username} {query}</h1>
               {
@@ -104,9 +107,10 @@ export const LoginPage2 = (props) => {
                 })
               }
               <button onClick={signOut}>Sign out</button>
-              <button onClick={fetchData}>fetchDat</button>
+              <button onClick={fetchData(text)}>fetchData</button>
             </main>
-        )}
+            );
+        }}
       </Authenticator>
   );
 }
