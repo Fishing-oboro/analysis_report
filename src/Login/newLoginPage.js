@@ -82,26 +82,24 @@ export const LoginPage2 = (props) => {
     const fetchData = async () => {
       await API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
                         .then((event) => {
-                          setUser(event.data.query);
+                          setUser(JSON.parse(event.data.query));
                           alert(usera);
                         });
     }
 
-    useEffect(() => {
-      fetchData();
-    })
+    fetchData();
 
   return (
     
       <Authenticator>
         {({signOut, user}) => (
             <main>
-              <h1>Hello {user.username}</h1>
-              {
+              <h1>Hello {user.username} {usera}</h1>
+              {/* {
                 usera.map((a) => {
                   return <h1>Hello {user.username} {usera}</h1>
                 })
-              }
+              } */}
               <button onClick={signOut}>Sign out</button>
             </main>
         )}
