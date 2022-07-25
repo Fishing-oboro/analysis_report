@@ -80,36 +80,24 @@ export const LoginPage2 = (props) => {
     const [usera, setUser] = useState(null);
     const [userb, setUserb] = useState(null);
 
-    API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
-      .then((evt) => {
-          setUserb(evt.data.queryRds);
-          alert(userb);
-      });
+    const fetchData = async () => {
+      const items = await API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }));
+      return JSON.parse(items);
+    }
+
+    setUserb(fetchData());
 
     useEffect(() => {
-      API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
-      .then((evt) => {
-          setUser(evt.data.queryRds);
-          alert(usera);
-      });
+      setUser(fetchData());
     })
-    
-
-  const query = (evt) => {
-    API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
-        .then((evt) => {
-            alert(evt.data.queryRds);
-        });
-  }
 
   return (
       <Authenticator>
         {({signOut, user}) => (
             <main>
-              <h1>Hello {user.username} {usera}</h1>
-              <h1>Hello {user.username} {userb}</h1>
+              <h1>Hello {user.username} {usera[0]["id"]}</h1>
+              <h1>Hello {user.username} {userb[0]["id"]}</h1>
               <button onClick={signOut}>Sign out</button>
-              <button onClick={(evt) => query(evt)}>Query</button>
             </main>
         )}
       </Authenticator>
