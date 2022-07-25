@@ -119,7 +119,13 @@ const Submit = (props) => {
     // fastapiに送信＋値をRDSに保存
 
     const getapi = (text) => {
-      return fetch(`https://54.95.62.207:8000/texts/${text}`, {method: 'GET'})
+      return fetch(`https://54.95.62.207:8000/texts/${text}`, {
+        method: 'GET',
+        mode: 'cors',
+        // headers: {
+        //   Access-Control-Allow-Origin: "https://54.95.62.207:8000",
+        // }
+      })
       .then((res) => res.json())
       .then((data) => {
           return data;
