@@ -78,7 +78,7 @@ export const Report = (props) => {
         // setJsons(JSON.parse(tmp));
         setJsons(JSON.parse(data));
       }
-  }, [text]);
+  }, [text, page]);
 
   useEffect(() => {
         if(data !== undefined){
@@ -118,7 +118,7 @@ const Submit = (props) => {
     // fastapiに送信＋値をRDSに保存
 
     const getapi = (text) => {
-      return fetch(`//54.95.62.207:8000/texts/${text}`, {method: 'GET'})
+      return fetch(`https://54.95.62.207:8000/texts/${text}`, {method: 'GET'})
       .then((res) => res.json())
       .then((data) => {
           return data;
@@ -201,6 +201,7 @@ const Result = (props) => {
 const Info = (props) => {
   const user_report = props.user_report
   const json = JSON.parse(user_report["json_text"]);
+
   const [datas, setDatas] = useState([
     {dName: '文字数', num: json["char_num"], exp: '=', ref: '-'},
     {dName: '平均文長', num: json["sentence_num"], exp: '=', ref: '文長-妥当性'},
