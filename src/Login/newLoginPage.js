@@ -75,10 +75,10 @@ Amplify.configure({
 //   );
 // }
 
-export const LoginPage2 = async (props) => {
+export const LoginPage2 = (props) => {
   //export default function App() {
-    const [query, setQuery] = useState();
-    const [data, setData] = useState();
+    const [query, setQuery] = useState("");
+    const [data, setData] = useState([]);
 
     const fetchData = () => {
       API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
@@ -90,7 +90,7 @@ export const LoginPage2 = async (props) => {
       return JSON.parse(query);
     }
 
-    await setData(fetchData());
+    setData(fetchData());
 
 
   return (
@@ -99,14 +99,10 @@ export const LoginPage2 = async (props) => {
             <main>
               <h1>Hello {user.username} {query}</h1>
               {
-                data !== undefined ? <div>Now Loading</div> : 
-                <h1>Hello {user.username} {data[0]["id"]}</h1>
-              }
-              {/* {
-                usera.map((a) => {
-                  return <h1>Hello {user.username} {usera}</h1>
+                data.map((a) => {
+                  return <h1>Hello {user.username} {a}</h1>
                 })
-              } */}
+              }
               <button onClick={signOut}>Sign out</button>
               <button onClick={fetchData}>fetchDat</button>
             </main>
