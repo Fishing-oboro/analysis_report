@@ -97,7 +97,10 @@ export const LoginPage2 = (props) => {
         {({signOut, user}) => (
             <main>
               <h1>Hello {user.username} {usera}</h1>
-              {/* <h1>Hello {user.username} {data[0]["id"]}</h1> */}
+              {
+                data !== undefined ? <div>Now Loading</div> : 
+                <h1>Hello {user.username} {data[0]["id"]}</h1>
+              }
               {/* {
                 usera.map((a) => {
                   return <h1>Hello {user.username} {usera}</h1>
