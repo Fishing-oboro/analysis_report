@@ -67,7 +67,7 @@ export const Report = (props) => {
   // const [user_reports, setUser] = useState([]);
 
   //GraphQL get
-  const text = `select * from user_report where user_id=${user_id} and report_id=${report_id} limit 1;`
+  const text = `select * from user_report where user_id=${user_id} and report_id=${report_id};`
   const [data, setData] = useState();
   const [jsons, setJsons] = useState([]);
 
