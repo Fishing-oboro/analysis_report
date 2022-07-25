@@ -79,9 +79,9 @@ export const LoginPage2 = (props) => {
     useEffect(() => {
       GraphApi(text, setData);
       if(data !== undefined){
-        // const tmp = JSON.stringify(data);
-        // setJsons(JSON.parse(tmp));
-        setJsons(JSON.parse(data));
+        const tmp = JSON.stringify(data);
+        setJsons(JSON.parse(tmp));
+        // setJsons(JSON.parse(data));
       }
     }, [text]);
 
@@ -90,8 +90,8 @@ export const LoginPage2 = (props) => {
       // const data = 
       GraphApi(text, setData);
       alert(data);
-      // const jsons = JSON.parse(data);
-      // alert(jsons[0]["id"]);
+      setJsons(JSON.parse(data));
+      alert(jsons[0]["id"]);
     }
 
   return (
@@ -101,7 +101,7 @@ export const LoginPage2 = (props) => {
               <h1>Hello {user.username} {data}</h1>
               {
                 jsons.map((json) => {
-                  return <h1>Hello {user.username} {json}</h1>
+                  return <h1>Hello {user.username} {json["id"]}</h1>
                 })
               }
               <button onClick={signOut}>Sign out</button>
