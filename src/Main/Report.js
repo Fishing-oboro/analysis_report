@@ -67,33 +67,34 @@ export const Report = (props) => {
   // const [user_reports, setUser] = useState([]);
 
   //GraphQL get
-  const text = `select * from user_report where user_id=${user_id} and report_id=${report_id};`
-  const [data, setData] = useState();
-  const [jsons, setJsons] = useState([]);
+  // const text = `select * from user_report where user_id=${user_id} and report_id=${report_id} limit 1;`
+  // const [data, setData] = useState();
+  // const [jsons, setJsons] = useState([]);
 
-  useEffect(() => {
-      GraphApi(text, setData);
-      if(data !== undefined){
-        // const tmp = JSON.stringify(data);
-        // setJsons(JSON.parse(tmp));
-        setJsons(JSON.parse(data));
-      }
-  }, [text, page]);
+  // useEffect(() => {
+  //     GraphApi(text, setData);
+  //     if(data !== undefined){
+  //       // const tmp = JSON.stringify(data);
+  //       // setJsons(JSON.parse(tmp));
+  //       setJsons(JSON.parse(data));
+  //     }
+  // }, [text, page]);
 
-  useEffect(() => {
-        if(data !== undefined){
-          // const tmp = JSON.stringify(data);
-          // setJsons(JSON.parse(tmp));
-          setJsons(JSON.parse(data));
-        }
-  }, [data]);
+  // useEffect(() => {
+  //       if(data !== undefined){
+  //         // const tmp = JSON.stringify(data);
+  //         // setJsons(JSON.parse(tmp));
+  //         setJsons(JSON.parse(data));
+  //       }
+  // }, [data]);
 
   const [page, setPage] = useState();
 
   useEffect(() => {
     const pages = {
       'submit': <Submit user_id={user_id} report_id={report_id}/>,
-      'result': <Result user_reports={jsons}/>,
+      'result': <Result user_id={user_id} report_id={report_id}/>,
+      // 'result': <Result user_reports={jsons}/>,
     };
     setPage(pages[tab]);
     }, [tab]);
@@ -151,10 +152,34 @@ const Submit = (props) => {
 }
 
 const Result = (props) => {
-  const user_reports = props.user_reports;
+  // const user_reports = props.user_reports;
+  const user_id = props.user_id;
+  const report_id = props.report_id
+
+  //GraphQL get
+  const text = `select * from user_report where user_id=${user_id} and report_id=${report_id} limit 1;`
+  const [data, setData] = useState();
+  const [jsons, setJsons] = useState([]);
+
+  useEffect(() => {
+      GraphApi(text, setData);
+      if(data !== undefined){
+        // const tmp = JSON.stringify(data);
+        // setJsons(JSON.parse(tmp));
+        setJsons(JSON.parse(data));
+      }
+  }, [text]);
+
+  useEffect(() => {
+        if(data !== undefined){
+          // const tmp = JSON.stringify(data);
+          // setJsons(JSON.parse(tmp));
+          setJsons(JSON.parse(data));
+        }
+  }, [data]);
   
 
-  const data = [
+  const dat = [
     {subject: '文長-妥当性', A: 120, fullMark: 150},
     {subject: '語彙力', A: 98, fullMark: 150},
     {subject: '文体-統一性', A: 86, fullMark: 150},
@@ -163,7 +188,7 @@ const Result = (props) => {
     {subject: '構文-妥当性', A: 65, fullMark: 150},
   ];
   
-  return  user_reports.map((user_report, index) => {
+  return  jsons.map((user_report, index) => {
       const json = JSON.parse(user_report["json_text"]);
       
       return(
@@ -180,7 +205,7 @@ const Result = (props) => {
             outerRadius={150}  // レーダーチャート全体の大きさ  
             width={800}  // レーダーチャートが記載される幅(この幅よりチャートが大きい場合、はみ出た箇所は表示されない)
             height={400}   // レーダーチャートが記載される高さ
-            data={data}  // 表示対象のデータ
+            data={dat}  // 表示対象のデータ
           >
             <PolarGrid />
             <PolarAngleAxis dataKey='subject' />
