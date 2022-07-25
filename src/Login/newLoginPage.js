@@ -78,14 +78,11 @@ Amplify.configure({
 export const LoginPage2 = (props) => {
   //export default function App() {
     const [usera, setUser] = useState(null);
-    const [userb, setUserb] = useState(null);
 
     const fetchData = async () => {
       const items = await API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }));
       return JSON.parse(items);
     }
-
-    setUserb(fetchData());
 
     useEffect(() => {
       setUser(fetchData());
@@ -95,8 +92,12 @@ export const LoginPage2 = (props) => {
       <Authenticator>
         {({signOut, user}) => (
             <main>
-              <h1>Hello {user.username} {usera[0]["id"]}</h1>
-              <h1>Hello {user.username} {userb[0]["id"]}</h1>
+              <h1>Hello {user.username}</h1>
+              {
+                usera.map((a) => {
+                  return <h1>Hello {user.username} {usera}</h1>
+                })
+              }
               <button onClick={signOut}>Sign out</button>
             </main>
         )}
