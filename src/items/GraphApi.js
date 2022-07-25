@@ -15,11 +15,11 @@ Amplify.configure({
   aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
 });
 
-export const GraphApi = (text) => {
+export const GraphApi = async (text) => {
   const [result, setResult] = useState();
-  useEffect(() => {
-    fetchapi();
-  }, [text])
+  // useEffect(() => {
+  //   fetchapi();
+  // }, [text])
 
   const fetchapi = async () => {
     try{
@@ -30,6 +30,8 @@ export const GraphApi = (text) => {
       console.log("error");
     }
   }
+
+  await fetchapi();
 
   return  result;
 
