@@ -116,12 +116,12 @@ const Submit = (props) => {
     // fastapiに送信＋値をRDSに保存
 
     const getapi = (text) => {
-      const proxy = process.env.API_TARGET;
-      return fetch(`${proxy}/texts/${text}`, {method: 'GET'})
+      return fetch(`${process.env.API_TARGET}/texts/${text}`, {method: 'GET'})
       .then((res) => res.json())
       .then((data) => {
           return data;
-      });
+      })
+      .catch(error => console.error('Unable to get items.', error));
     }
 
     const data = await getapi(text);
