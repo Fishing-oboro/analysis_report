@@ -86,9 +86,11 @@ export const LoginPage2 = (props) => {
     }, [text]);
 
     useEffect(() => {
-        // const tmp = JSON.stringify(data);
-        // setJsons(JSON.parse(tmp));
-        setJsons(JSON.parse(data));
+        if(data !== undefined){
+          // const tmp = JSON.stringify(data);
+          // setJsons(JSON.parse(tmp));
+          setJsons(JSON.parse(data));
+        }
     }, [data]);
 
     // alert(data)
