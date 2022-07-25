@@ -15,16 +15,20 @@ Amplify.configure({
   aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
 });
 
-export const GraphApi = async (text) => {
+export const GraphApi = (text) => {
   const [result, setResult] = useState();
   useEffect(() => {
     fetchapi();
   }, [])
 
   const fetchapi = async () => {
-    const res = await API.graphql(graphqlOperation(queryRds, { query: text }));
-    const rdsdata = res.data.queryRds;
-    setResult(rdsdata);
+    try{
+      const res = await API.graphql(graphqlOperation(queryRds, { query: text }));
+      const rdsdata = res.data.queryRds;
+      setResult(rdsdata);
+    }catch(err){
+      console.log("error");
+    }
   }
 
   return  result;
