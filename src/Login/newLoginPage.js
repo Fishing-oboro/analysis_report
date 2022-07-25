@@ -79,11 +79,17 @@ export const LoginPage2 = (props) => {
     useEffect(() => {
       GraphApi(text, setData);
       if(data !== undefined){
-        const tmp = JSON.stringify(data);
-        setJsons(JSON.parse(tmp));
-        // setJsons(JSON.parse(data));
+        // const tmp = JSON.stringify(data);
+        // setJsons(JSON.parse(tmp));
+        setJsons(JSON.parse(data));
       }
     }, [text]);
+
+    useEffect(() => {
+        // const tmp = JSON.stringify(data);
+        // setJsons(JSON.parse(tmp));
+        setJsons(JSON.parse(data));
+    }, [data]);
 
     // alert(data)
     const func = () => {
@@ -91,7 +97,7 @@ export const LoginPage2 = (props) => {
       GraphApi(text, setData);
       alert(data);
       setJsons(JSON.parse(data));
-      alert(jsons[0]["id"]);
+      // alert(jsons[0]["id"]);
     }
 
   return (
