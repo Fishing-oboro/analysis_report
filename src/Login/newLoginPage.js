@@ -77,7 +77,7 @@ Amplify.configure({
 
 export const LoginPage2 = (props) => {
   //export default function App() {
-    const [usera, setUser] = useState([]);
+    const [usera, setUser] = useState("");
 
     const fetchData = async () => {
       await API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
@@ -85,9 +85,10 @@ export const LoginPage2 = (props) => {
                           setUser(JSON.parse(event.data.query));
                           alert(usera);
                         });
+      return JSON.parse(usera);
     }
 
-    fetchData();
+    const data = fetchData();
 
   return (
     
@@ -95,6 +96,7 @@ export const LoginPage2 = (props) => {
         {({signOut, user}) => (
             <main>
               <h1>Hello {user.username} {usera}</h1>
+              {/* <h1>Hello {user.username} {data[0]["id"]}</h1> */}
               {/* {
                 usera.map((a) => {
                   return <h1>Hello {user.username} {usera}</h1>
