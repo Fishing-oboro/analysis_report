@@ -79,16 +79,17 @@ export const LoginPage2 = (props) => {
   //export default function App() {
     const [usera, setUser] = useState("");
 
-    const fetchData = async () => {
-      await API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
+    const fetchData = () => {
+      API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
                         .then((event) => {
-                          setUser(JSON.parse(event.data.query));
+                          setUser(event.data.query);
                           alert(usera);
                         });
-      return JSON.parse(usera);
+      // return JSON.parse(usera);
     }
 
-    const data = fetchData();
+    // const data = fetchData();
+
 
   return (
     
@@ -103,7 +104,7 @@ export const LoginPage2 = (props) => {
                 })
               } */}
               <button onClick={signOut}>Sign out</button>
-              <button onClick={fetchData}>Sign out</button>
+              <button onClick={fetchData}>fetchDat</button>
             </main>
         )}
       </Authenticator>
