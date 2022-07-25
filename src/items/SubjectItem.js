@@ -7,6 +7,7 @@ import { Amplify, API, graphqlOperation} from "aws-amplify"
 import { queryRds } from "../graphql/queries";
 
 import React from 'react';
+import { GraphApi } from "./GraphApi";
 
 const SubjectContainer = styled.div`
   border-radius: 10px;
@@ -63,17 +64,40 @@ Amplify.configure({
   aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
 });
 
-export const SubjectItem = async (props) => {
+export const SubjectItem = (props) => {
   const user_id = props.user_id;
   const subject = props.subject;
   // const reports = ApiFetch(`/db/${subject['id']}/report`);
-  const [reports, setReports] = useState();
-  await API.graphql(graphqlOperation(queryRds, {
-                query: `select * from report where subject_id=${subject["id"]};`
-      }))
-      .then((evt) => {
-        setReports(JSON.parse(evt.data.queryRds));
-  });
+  // const [reports, setReports] = useState([]);
+
+  //GraphQL get
+  const text = `select * from report where subject_id=${subject["id"]};`
+  const [data, setData] = useState();
+  const [jsons, setJsons] = useState([]);
+
+  useEffect(() => {
+      GraphApi(text, setData);
+      if(data !== undefined){
+        // const tmp = JSON.stringify(data);
+        // setJsons(JSON.parse(tmp));
+        setJsons(JSON.parse(data));
+      }
+  }, [text]);
+
+  useEffect(() => {
+        if(data !== undefined){
+          // const tmp = JSON.stringify(data);
+          // setJsons(JSON.parse(tmp));
+          setJsons(JSON.parse(data));
+        }
+  }, [data]);
+
+  // API.graphql(graphqlOperation(queryRds, {
+  //               query: `select * from report where subject_id=${subject["id"]};`
+  //     }))
+  //     .then((evt) => {
+  //       setReports(JSON.parse(evt.data.queryRds));
+  // });
 
   const navigate = useNavigate();
 
@@ -82,7 +106,7 @@ export const SubjectItem = async (props) => {
       <Title>{subject["name"]}</Title>
       <ReportContainer>
       {
-        reports.map((report, index) => {
+        jsons.map((report, index) => {
           return (
             <Report onClick={() => navigate(`/submit?user_id=${user_id}&report_id=${report["id"]}`)}>
                 <SubTitle>{report["name"]}</SubTitle>

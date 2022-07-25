@@ -103,7 +103,7 @@ export const MainPage = (props) => {
             <li onClick={() => setPage(<SubjectList user_id={user_id}/>)}>main</li>
             <li onClick={() => setPage(<Report tab='submit' user_id={user_id} report_id={report_id}/>)}>submit</li>
             <li onClick={() => setPage(<Report tab='result' user_id={user_id} report_id={report_id}/>)}>result</li>
-            {/* <li onClick={signOut}></li> */}
+            <li onClick={signOut}>logout</li>
           </ul>
         </SideItem>
       </SideBar>

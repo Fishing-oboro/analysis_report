@@ -52,70 +52,70 @@ Amplify.configure({
   aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
 });
 
-// export const LoginPage2 = (props) => {
-//   return (
-//       <Authenticator>
-//         {({signOut, user}) => (
-//             <BrowserRouter>
-//             <TitleHeader>
-//               <Title>Analysis-Report</Title>
-//               <HeaderIcon />
-//             </TitleHeader>
-//               <Routes>
-//                 <Route path='/*' element={<MainPage user={1} signOut={signOut}/>} />
-//                 <Route path='/submit' element={<MainPage tab='submit' />} />
-//                 <Route path='/result' element={<MainPage tab='result' />} />
-//               </Routes>
-//             </BrowserRouter>
-//         )}
-//       </Authenticator>
-//   );
-// }
-
 export const LoginPage2 = (props) => {
-    const text = 'select * from subject'
-    const [data, setData] = useState();
-    const [jsons, setJsons] = useState([]);
-    useEffect(() => {
-      GraphApi(text, setData);
-      if(data !== undefined){
-        // const tmp = JSON.stringify(data);
-        // setJsons(JSON.parse(tmp));
-        setJsons(JSON.parse(data));
-      }
-    }, [text]);
-
-    useEffect(() => {
-        if(data !== undefined){
-          // const tmp = JSON.stringify(data);
-          // setJsons(JSON.parse(tmp));
-          setJsons(JSON.parse(data));
-        }
-    }, [data]);
-
-    // alert(data)
-    const func = () => {
-      // const data = 
-      GraphApi(text, setData);
-      alert(data);
-      setJsons(JSON.parse(data));
-      // alert(jsons[0]["id"]);
-    }
-
   return (
       <Authenticator>
         {({signOut, user}) => (
-            <main>
-              <h1>Hello {user.username} {data}</h1>
-              {
-                jsons.map((json) => {
-                  return <h1>Hello {user.username} {json["id"]}</h1>
-                })
-              }
-              <button onClick={signOut}>Sign out</button>
-              <button onClick={func}>Sign out</button>
-            </main>
-          )}
+            <BrowserRouter>
+            <TitleHeader>
+              <Title>Analysis-Report</Title>
+              <HeaderIcon />
+            </TitleHeader>
+              <Routes>
+                <Route path='/*' element={<MainPage user={1} signOut={signOut}/>} />
+                <Route path='/submit' element={<MainPage tab='submit' />} />
+                <Route path='/result' element={<MainPage tab='result' />} />
+              </Routes>
+            </BrowserRouter>
+        )}
       </Authenticator>
   );
 }
+
+// export const LoginPage2 = (props) => {
+//     const text = 'select * from subject'
+//     const [data, setData] = useState();
+//     const [jsons, setJsons] = useState([]);
+//     useEffect(() => {
+//       GraphApi(text, setData);
+//       if(data !== undefined){
+//         // const tmp = JSON.stringify(data);
+//         // setJsons(JSON.parse(tmp));
+//         setJsons(JSON.parse(data));
+//       }
+//     }, [text]);
+
+//     useEffect(() => {
+//         if(data !== undefined){
+//           // const tmp = JSON.stringify(data);
+//           // setJsons(JSON.parse(tmp));
+//           setJsons(JSON.parse(data));
+//         }
+//     }, [data]);
+
+//     // alert(data)
+//     const func = () => {
+//       // const data = 
+//       GraphApi(text, setData);
+//       alert(data);
+//       setJsons(JSON.parse(data));
+//       // alert(jsons[0]["id"]);
+//     }
+
+//   return (
+//       <Authenticator>
+//         {({signOut, user}) => (
+//             <main>
+//               <h1>Hello {user.username} {data}</h1>
+//               {
+//                 jsons.map((json) => {
+//                   return <h1>Hello {user.username} {json["id"]}</h1>
+//                 })
+//               }
+//               <button onClick={signOut}>Sign out</button>
+//               <button onClick={func}>Sign out</button>
+//             </main>
+//           )}
+//       </Authenticator>
+//   );
+// }

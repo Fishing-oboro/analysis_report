@@ -4,7 +4,8 @@ import { SubjectItem } from "../items/SubjectItem";
 import  { Amplify, API, graphqlOperation} from "aws-amplify"
 import { queryRds } from "../graphql/queries";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { GraphApi } from "../items/GraphApi";
 
 Amplify.configure({
   aws_project_region: process.env.REACT_APP_AWS_PROJECT_REGION,
@@ -17,21 +18,44 @@ Amplify.configure({
   aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
 });
 
-export const SubjectList = async (props) => {
+export const SubjectList = (props) => {
   const user_id = props.user_id;
   // const subjects = ApiFetch(`/db/${user_id}/subject`);
-  const [subjects, setSubject] = useState();
-  await API.graphql(graphqlOperation(queryRds, {
-                query: `select * from subject where id in (select subject_id from user_subject where user_id=${user_id} );`
-      }))
-      .then((evt) => {
-      setSubject(JSON.parse(evt.data.queryRds));
-  })
+  // const [subjects, setSubject] = useState("");
+
+  //GraphQL get
+  const text = `select * from subject where id in (select subject_id from user_subject where user_id=${user_id} );`
+  const [data, setData] = useState();
+  const [jsons, setJsons] = useState([]);
+
+  useEffect(() => {
+      GraphApi(text, setData);
+      if(data !== undefined){
+        // const tmp = JSON.stringify(data);
+        // setJsons(JSON.parse(tmp));
+        setJsons(JSON.parse(data));
+      }
+  }, [text]);
+
+  useEffect(() => {
+        if(data !== undefined){
+          // const tmp = JSON.stringify(data);
+          // setJsons(JSON.parse(tmp));
+          setJsons(JSON.parse(data));
+        }
+  }, [data]);
+
+  // API.graphql(graphqlOperation(queryRds, {
+  //               query: `select * from subject where id in (select subject_id from user_subject where user_id=${user_id} );`
+  //     }))
+  //     .then((evt) => {
+  //     setSubject(JSON.parse(evt.data.queryRds));
+  // })
 
   return(
     <div>
       {
-      subjects.map((subject, index) => {
+      jsons.map((subject, index) => {
         return <SubjectItem subject={subject} user_id={user_id}/>
       })
       }

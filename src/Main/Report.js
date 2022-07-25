@@ -10,6 +10,7 @@ import { queryRds } from "../graphql/queries";
 // import axios from "axios"
 
 import React from 'react';
+import { GraphApi } from "../items/GraphApi"
 
 const Body = styled.div`
   position: relative;
@@ -57,24 +58,41 @@ Amplify.configure({
   aws_appsync_apiKey: process.env.REACT_APP_AWS_SYNC_APIKEY
 });
 
-export const Report = async (props) => {
+export const Report = (props) => {
   const tab = props.tab;
   const user_id = props.user_id;
   const report_id = props.report_id;
   // const user_reports = ApiFetch(`/db/${user_id}/${report_id}/data`);
-  const [user_reports, setUser] = useState();
-  await API.graphql(graphqlOperation(queryRds, {
-                query: `select * from user_report where user_id=${user_id} and report_id=${report_id} limit 1;`
-      }))
-      .then((evt) => {
-      setUser(JSON.parse(evt.data.queryRds));
-  })
+  // const [user_reports, setUser] = useState([]);
+
+  //GraphQL get
+  const text = `select * from user_report where user_id=${user_id} and report_id=${report_id} limit 1;`
+  const [data, setData] = useState();
+  const [jsons, setJsons] = useState([]);
+
+  useEffect(() => {
+      GraphApi(text, setData);
+      if(data !== undefined){
+        // const tmp = JSON.stringify(data);
+        // setJsons(JSON.parse(tmp));
+        setJsons(JSON.parse(data));
+      }
+  }, [text]);
+
+  useEffect(() => {
+        if(data !== undefined){
+          // const tmp = JSON.stringify(data);
+          // setJsons(JSON.parse(tmp));
+          setJsons(JSON.parse(data));
+        }
+  }, [data]);
+
   const [page, setPage] = useState();
 
   useEffect(() => {
     const pages = {
       'submit': <Submit user_id={user_id} report_id={report_id}/>,
-      'result': <Result user_reports={user_reports}/>,
+      'result': <Result user_reports={jsons}/>,
     };
     setPage(pages[tab]);
     }, [tab]);
