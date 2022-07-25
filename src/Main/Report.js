@@ -118,7 +118,7 @@ const Submit = (props) => {
     // fastapiに送信＋値をRDSに保存
 
     const getapi = (text) => {
-      return fetch(`${api_target}/texts/${text}`, {method: 'GET'})
+      return fetch(`http://54.95.62.207:8000/texts/${text}`, {method: 'GET'})
       .then((res) => res.json())
       .then((data) => {
           return data;
@@ -127,17 +127,16 @@ const Submit = (props) => {
     }
 
     const data = await getapi(text);
-    alert(data);
     const result = JSON.stringify(data);
     
-    // alert(`success get result: ${result}`);
+    alert(`success get result: ${result}`);
 
     // fetch(`/db/result/post?user_id=${user_id}&report_id=${report_id}&json_text=${result}`, {method: 'POST'});
 
     await API.graphql(graphqlOperation(queryRds, {
                 query: `insert into user_report (user_id, report_id, json_text) values (${user_id}, ${report_id}, ${result});`
-              })
-    )
+              }).catch((error) => {console.log('error')})
+    );
     
     navigation(`/result?user_id=${user_id}&report_id=${report_id}`);
   }
