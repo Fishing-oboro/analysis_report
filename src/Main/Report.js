@@ -125,6 +125,7 @@ const Submit = (props) => {
     }
 
     const data = await getapi(text);
+    alert(data);
     const result = JSON.stringify(data);
     
     alert(`success get result: ${result}`);
