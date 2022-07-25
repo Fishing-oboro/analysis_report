@@ -18,12 +18,12 @@ Amplify.configure({
 export const GraphApi = async (text) => {
   const [result, setResult] = useState();
 
-  useEffect(() => {
-    API.graphql(graphqlOperation(queryRds, { query: text }))
+  await API.graphql(graphqlOperation(queryRds, { query: text }))
                         .then((event) => {
                           setResult(event.data.queryRds);
                         });
-  }, [text])
+  
+  alert(result);
 
   return result;
 }
