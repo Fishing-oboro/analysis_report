@@ -6,10 +6,6 @@ import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import { API, graphqlOperation } from "aws-amplify";
-
-import { queryRds } from "../graphql/queries";
-
 import React, { useState } from 'react';
 import { useEffect } from "react";
 import { GraphApi } from "../items/GraphApi";
@@ -84,12 +80,12 @@ export const LoginPage2 = (props) => {
       <Authenticator>
         {({signOut, user}) => (
             <main>
-              <h1>Hello {user.username} {data}</h1>
-              {/* {
+              <h1>Hello {user.username}</h1>
+              {
                 data.map((a) => {
                   return <h1>Hello {user.username} {a}</h1>
                 })
-              } */}
+              }
               <button onClick={signOut}>Sign out</button>
             </main>
           )}
