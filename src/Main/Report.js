@@ -117,7 +117,8 @@ const Submit = (props) => {
     // fastapiに送信＋値をRDSに保存
 
     const getapi = (text) => {
-      return fetch(`/api/texts/${text}`, {method: 'GET'})
+      const proxy = process.env.API_TARGET
+      return fetch(`${proxy}/texts/${text}`, {method: 'GET'})
       .then((res) => res.json())
       .then((data) => {
           return data;
