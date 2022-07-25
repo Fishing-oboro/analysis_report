@@ -99,7 +99,7 @@ export const LoginPage2 = (props) => {
             <main>
               <h1>Hello {user.username} {query}</h1>
               {
-                data === undefined ? <div>Now Loading</div> : 
+                data !== undefined ? <div>Now Loading</div> : 
                 <h1>Hello {user.username} {data[0]["id"]}</h1>
               }
               {/* {
