@@ -19,7 +19,7 @@ export const GraphApi = (text) => {
   const [result, setResult] = useState();
   useEffect(() => {
     fetchapi();
-  }, [])
+  }, [text])
 
   const fetchapi = async () => {
     try{
