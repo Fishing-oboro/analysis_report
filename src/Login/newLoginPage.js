@@ -77,12 +77,12 @@ Amplify.configure({
 
 export const LoginPage2 = (props) => {
   //export default function App() {
-    const [usera, setUser] = useState("");
+    const [usera, setUser] = useState();
 
     const fetchData = () => {
       API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
                         .then((event) => {
-                          setUser(event.data.query);
+                          setUser(event.data.queryRds);
                           alert(usera);
                         });
       // return JSON.parse(usera);
