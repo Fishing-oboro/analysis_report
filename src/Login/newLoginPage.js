@@ -77,8 +77,9 @@ export const LoginPage2 = (props) => {
     // alert(data)
     const func = () => {
       const data = GraphApi(text);
-      const jsons = JSON.parse(data)
-      alert(jsons[0]["id"]);
+      alert(data);
+      // const jsons = JSON.parse(data);
+      // alert(jsons[0]["id"]);
     }
 
   return (
