@@ -74,9 +74,11 @@ Amplify.configure({
 
 export const LoginPage2 = (props) => {
     const text = 'select * from subject'
+    const [data, setData] = useState();
     // alert(data)
     const func = () => {
-      const data = GraphApi(text);
+      // const data = 
+      GraphApi(text, setData);
       alert(data);
       // const jsons = JSON.parse(data);
       // alert(jsons[0]["id"]);
