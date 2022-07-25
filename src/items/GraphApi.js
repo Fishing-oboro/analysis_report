@@ -16,11 +16,25 @@ Amplify.configure({
 });
 
 export const GraphApi = async (text) => {
+  const [result, setResult] = useState();
+  useEffect(() => {
+    fetchapi();
+  }, [])
 
-  return API.graphql(graphqlOperation(queryRds, { query: text }))
-                        .then((event) => {
-                            const result = event.data.queryRds;
-                            alert(result);
-                            return JSON.parse(result);
-                        });
+  const fetchapi = async () => {
+    const res = await API.graphql(graphqlOperation(queryRds, { query: text }));
+    const rdsdata = res.data.queryRds;
+    setResult(rdsdata);
+  }
+
+  return  result;
+
+  
+
+  // return API.graphql(graphqlOperation(queryRds, { query: text }))
+  //                       .then((event) => {
+  //                           const result = event.data.queryRds;
+  //                           alert(result);
+  //                           return JSON.parse(result);
+  //                       });
 }
