@@ -75,10 +75,15 @@ Amplify.configure({
 export const LoginPage2 = (props) => {
     const text = 'select * from subject'
     const [data, setData] = useState();
+
+    useEffect(() => {
+      GraphApi(text, setData);
+    }, [text]);
+
     // alert(data)
-    const func = async () => {
+    const func = () => {
       // const data = 
-      await GraphApi(text, setData);
+      GraphApi(text, setData);
       alert(data);
       // const jsons = JSON.parse(data);
       // alert(jsons[0]["id"]);
@@ -88,7 +93,7 @@ export const LoginPage2 = (props) => {
       <Authenticator>
         {({signOut, user}) => (
             <main>
-              <h1>Hello {user.username}</h1>
+              <h1>Hello {user.username} {data}</h1>
               {/* {
                 data.map((a) => {
                   return <h1>Hello {user.username} {a}</h1>

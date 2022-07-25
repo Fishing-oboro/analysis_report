@@ -29,7 +29,7 @@ export const GraphApi = async (text, func) => {
       .then((event) => {
         const rdsdata = event.data.queryRds;
         // setResult(rdsdata);
-        func(rdsdata)
+        func(rdsdata);
         console.log(rdsdata);
       });
       // const rdsdata = res.data.queryRds;
