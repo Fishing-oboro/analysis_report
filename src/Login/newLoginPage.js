@@ -80,12 +80,15 @@ export const LoginPage2 = (props) => {
     const [usera, setUser] = useState([]);
 
     const fetchData = async () => {
-      const items = await API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }));
-      return JSON.parse(items);
+      await API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
+                        .then((event) => {
+                          setUser(event.data.query);
+                          alert(usera);
+                        });
     }
 
     useEffect(() => {
-      setUser(fetchData());
+      fetchData();
     })
 
   return (
