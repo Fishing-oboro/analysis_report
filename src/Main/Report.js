@@ -7,7 +7,6 @@ import { ApiFetch } from "../items/ApiFetch"
 import { useNavigate, useParams } from "react-router-dom"
 import { Amplify, API, graphqlOperation} from "aws-amplify"
 import { queryRds } from "../graphql/queries";
-// import axios from "axios"
 
 import React from 'react';
 import { GraphApi } from "../items/GraphApi"
@@ -126,12 +125,13 @@ const Submit = (props) => {
     }
 
     const data = await getapi(text);
-    const result = JSON.stringify(data);
+    alert(data);
+    // const result = JSON.stringify(data);
     
-    alert(`success get result: ${result}`);
+    // alert(`success get result: ${result}`);
 
     // fetch(`/db/result/post?user_id=${user_id}&report_id=${report_id}&json_text=${result}`, {method: 'POST'});
-    
+
     // await API.graphql(graphqlOperation(queryRds, {
     //             query: `insert into user_report (user_id, report_id, json_text) values (${user_id}, ${report_id}, ${result});`
     //           })
