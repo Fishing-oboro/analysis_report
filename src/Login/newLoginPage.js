@@ -74,19 +74,24 @@ Amplify.configure({
 
 export const LoginPage2 = (props) => {
     const text = 'select * from subject'
-    const data = GraphApi(text);
+    // alert(data)
+    const func = () => {
+      const data = GraphApi(text);
+      alert(data);
+    }
 
   return (
       <Authenticator>
         {({signOut, user}) => (
             <main>
               <h1>Hello {user.username}</h1>
-              {
+              {/* {
                 data.map((a) => {
                   return <h1>Hello {user.username} {a}</h1>
                 })
-              }
+              } */}
               <button onClick={signOut}>Sign out</button>
+              <button onClick={func}>Sign out</button>
             </main>
           )}
       </Authenticator>
