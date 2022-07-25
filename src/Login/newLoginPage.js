@@ -78,21 +78,24 @@ Amplify.configure({
 export const LoginPage2 = (props) => {
   //export default function App() {
     const [usera, setUser] = useState();
+    const data = null;
 
     const fetchData = async () => {
       await API.graphql(graphqlOperation(queryRds, { query: 'select * from subject' }))
                         .then((event) => {
                           setUser(event.data.queryRds);
-                          alert(usera);
+                          alert(JSON.parse(usera)[0]["id"]);
                         });
       return JSON.parse(usera);
     }
 
-    const data = fetchData();
+    useEffect({
+      data
+    }, [usera])
 
+    
 
   return (
-    
       <Authenticator>
         {({signOut, user}) => (
             <main>
