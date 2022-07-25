@@ -23,9 +23,14 @@ export const GraphApi = async (text) => {
 
   const fetchapi = async () => {
     try{
-      const res = await API.graphql(graphqlOperation(queryRds, { query: text }));
-      const rdsdata = res.data.queryRds;
-      setResult(rdsdata);
+      // const res = 
+      await API.graphql(graphqlOperation(queryRds, { query: text }))
+      .then((event) => {
+        const rdsdata = event.data.queryRds;
+        setResult(rdsdata)
+      });
+      // const rdsdata = res.data.queryRds;
+      // setResult(rdsdata);
     }catch(err){
       console.log("error");
     }
@@ -40,7 +45,7 @@ export const GraphApi = async (text) => {
   // return API.graphql(graphqlOperation(queryRds, { query: text }))
   //                       .then((event) => {
   //                           const result = event.data.queryRds;
-  //                           alert(result);
+  //                           setResult(rdsdata)
   //                           return JSON.parse(result);
   //                       });
 }
