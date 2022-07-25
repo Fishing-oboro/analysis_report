@@ -190,6 +190,7 @@ const Result = (props) => {
   
   return  jsons.map((user_report, index) => {
       const json = JSON.parse(user_report["json_text"]);
+      // const json = user_report["json_text"];
       
       return(
         <Body>
@@ -217,15 +218,16 @@ const Result = (props) => {
                         fillOpacity={0.6}  // レーダー内の色の濃さ(1にすると濃さMAX)
             />
           </RadarChart>
-        <Info user_report={user_report}/>
+        <Info user_report={json}/>
     </Body>
       )
     })
 }
 
 const Info = (props) => {
-  const user_report = props.user_report
-  const json = JSON.parse(user_report["json_text"]);
+  const json = props.user_report
+  // const user_report = props.user_report
+  // const json = JSON.parse(user_report["json_text"]);
 
   const [datas, setDatas] = useState([
     {dName: '文字数', num: json["char_num"], exp: '=', ref: '-'},
