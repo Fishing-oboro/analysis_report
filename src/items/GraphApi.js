@@ -19,6 +19,8 @@ export const GraphApi = async (text) => {
 
   return API.graphql(graphqlOperation(queryRds, { query: text }))
                         .then((event) => {
-                            return event.data.queryRds;
+                            const result = event.data.queryRds;
+                            alert(result);
+                            return JSON.parse(result);
                         });
 }
