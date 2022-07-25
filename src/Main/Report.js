@@ -121,7 +121,7 @@ const Submit = (props) => {
     const getapi = (text) => {
       return fetch(`https://54.95.62.207:8000/texts/${text}`, {
         method: 'GET',
-        mode: 'cors',
+        mode: 'no-cors',
         // headers: {
         //   Access-Control-Allow-Origin: "https://54.95.62.207:8000",
         // }
