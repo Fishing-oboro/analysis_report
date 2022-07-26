@@ -128,7 +128,9 @@ const Submit = (props) => {
       })
       .then((res) => res.json())
       .then((data) => {
-          return data;
+          const result = JSON.stringify(data);
+          const json = JSON.parse(result);
+          return json;
       })
       .catch(error => console.error('Unable to get items.', error));
       // return fetch(`https://54.95.62.207:8000/texts/${text}`, {
@@ -145,11 +147,7 @@ const Submit = (props) => {
       // .catch(error => PromiseRejectionEvent());
     }
 
-    const data = await getapi(text);
-    const result = JSON.stringify(data);
-    alert(`success get result: ${result}`);
-
-    const json = JSON.parse(data);
+    const json = await getapi(text);
     
     
 
