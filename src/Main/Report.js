@@ -4,7 +4,7 @@ import { Detail } from "../items/Detail"
 import {PolarAngleAxis, PolarGrid, PolarRadiusAxis,
    RadarChart, Radar} from 'recharts'
 import { ApiFetch } from "../items/ApiFetch"
-import { useNavigate, useParams } from "react-router-dom"
+import { resolvePath, useNavigate, useParams } from "react-router-dom"
 import { Amplify, API, graphqlOperation} from "aws-amplify"
 import { queryRds } from "../graphql/queries";
 
@@ -118,8 +118,8 @@ const Submit = (props) => {
   const submit = async (user_id, report_id, text) => {
     // fastapiに送信＋値をRDSに保存
 
-    const getapi = (text) => {
-      return fetch(`https://54.95.62.207:8000/texts/${text}`, {
+    const getapi = async (text) => {
+      return await fetch(`https://54.95.62.207:8000/texts/${text}`, {
         method: 'GET',
         mode: 'no-cors',
         // headers: {
@@ -131,6 +131,18 @@ const Submit = (props) => {
           return data;
       })
       .catch(error => console.error('Unable to get items.', error));
+      // return fetch(`https://54.95.62.207:8000/texts/${text}`, {
+      //   method: 'GET',
+      //   mode: 'no-cors',
+      //   // headers: {
+      //   //   Access-Control-Allow-Origin: "https://54.95.62.207:8000",
+      //   // }
+      // })
+      // .then((res) => res.text())
+      // .then((data) => {
+      //     resolve(data ? JSON.parse(data) : {})
+      // })
+      // .catch(error => PromiseRejectionEvent());
     }
 
     const data = await getapi(text);
