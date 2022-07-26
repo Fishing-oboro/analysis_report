@@ -196,7 +196,8 @@ const Result = (props) => {
   
   return  jsons.map((user_report, index) => {
       // const json = JSON.parse(user_report["json_text"]);
-      const json = user_report["json_text"];
+      const json_text = JSON.stringify(user_report["json_text"]);
+      const json = JSON.parse(json_text);
       
       return(
         <Body>
