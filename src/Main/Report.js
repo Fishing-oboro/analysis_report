@@ -126,9 +126,7 @@ const Submit = (props) => {
         //   Access-Control-Allow-Origin: "https://54.95.62.207:8000",
         // }
       })
-      .then((res) => {
-        res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
           const result = JSON.stringify(data);
           const json = JSON.parse(result);
@@ -151,7 +149,7 @@ const Submit = (props) => {
 
     const json = await getapi(text);
     alert(json)
-    alert(JSON.parse(JSON.stringify(json))["text"]);
+   
     
     
 
@@ -166,6 +164,7 @@ const Submit = (props) => {
       'text', '${json['text']}', 'char_num', '${json["char_num"]}', 'word_num', '${json["word_num"]}', 'bind_rate', '${json["bind_rate"]}', 'char_rate', '${json["char_rate"]}', 'dupli_num', '${json["dupli_num"]}', 'end_unity', '${json["end_unity"]}','depend_mean', '${json["depend_mean"]}', 'proofreading', '${json["proofreading"]}', 'sentence_num', '${json["sentence_num"]}'
     ));`;
     alert(query_text)
+    alert(JSON.parse(JSON.stringify(json)));
 
     await API.graphql(graphqlOperation(queryRds, {
       query: query_text
