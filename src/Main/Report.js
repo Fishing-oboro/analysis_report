@@ -149,8 +149,8 @@ const Submit = (props) => {
 
     let json = await getapi(text);
     json = JSON.parse(json)
-    alert(json)
-    alert(json['text'])
+    // alert(json)
+    // alert(json['text'])
    
     
     
@@ -165,7 +165,7 @@ const Submit = (props) => {
     const query_text = `insert into user_report (user_id, report_id, json_text) values (${user_id}, ${report_id}, JSON_OBJECT(
       'text', '${json['text']}', 'char_num', '${json["char_num"]}', 'word_num', '${json["word_num"]}', 'bind_rate', '${json["bind_rate"]}', 'char_rate', '${json["char_rate"]}', 'dupli_num', '${json["dupli_num"]}', 'end_unity', '${json["end_unity"]}','depend_mean', '${json["depend_mean"]}', 'proofreading', '${json["proofreading"]}', 'sentence_num', '${json["sentence_num"]}'
     ));`;
-    alert(query_text)
+    // alert(query_text)
     // alert(JSON.parse(JSON.stringify(json)));
 
     await API.graphql(graphqlOperation(queryRds, {
@@ -191,7 +191,7 @@ const Result = (props) => {
   const report_id = props.report_id
 
   //GraphQL get
-  const text = `select * from user_report where user_id=${user_id} and report_id=${report_id} limit 1;`
+  const text = `select * from user_report where user_id=${user_id} and report_id=${report_id};`
   const [data, setData] = useState();
   const [jsons, setJsons] = useState([]);
 
