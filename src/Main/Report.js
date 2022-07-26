@@ -118,10 +118,10 @@ const Submit = (props) => {
   const submit = async (user_id, report_id, text) => {
     // fastapiに送信＋値をRDSに保存
 
-    const getapi = async (text) => {
-      return await fetch(`https://54.95.62.207:8000/texts/${text}`, {
+    const getapi = (text) => {
+      return fetch(`https://54.95.62.207:8000/texts/${text}`, {
         method: 'GET',
-        mode: 'no-cors',
+        mode: 'cors',
         // headers: {
         //   Access-Control-Allow-Origin: "https://54.95.62.207:8000",
         // }
