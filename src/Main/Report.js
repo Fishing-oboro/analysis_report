@@ -126,7 +126,9 @@ const Submit = (props) => {
         //   Access-Control-Allow-Origin: "https://54.95.62.207:8000",
         // }
       })
-      .then((res) => res.json())
+      .then((res) => {
+        res.json();
+      })
       .then((data) => {
           const result = JSON.stringify(data);
           const json = JSON.parse(result);
@@ -148,7 +150,8 @@ const Submit = (props) => {
     }
 
     const json = await getapi(text);
-    alert(JSON.stringify(json));
+    alert(json)
+    alert(JSON.parse(JSON.stringify(json))["text"]);
     
     
 
@@ -160,7 +163,7 @@ const Submit = (props) => {
     // );
     // alert(json["text"]);
     const query_text = `insert into user_report (user_id, report_id, json_text) values (${user_id}, ${report_id}, JSON_OBJECT(
-      'text', '${json["text"]}', 'char_num', '${json["char_num"]}', 'word_num', '${json["word_num"]}', 'bind_rate', '${json["bind_rate"]}', 'char_rate', '${json["char_rate"]}', 'dupli_num', '${json["dupli_num"]}', 'end_unity', '${json["end_unity"]}','depend_mean', '${json["depend_mean"]}', 'proofreading', '${json["proofreading"]}', 'sentence_num', '${json["sentence_num"]}'
+      'text', '${json['text']}', 'char_num', '${json["char_num"]}', 'word_num', '${json["word_num"]}', 'bind_rate', '${json["bind_rate"]}', 'char_rate', '${json["char_rate"]}', 'dupli_num', '${json["dupli_num"]}', 'end_unity', '${json["end_unity"]}','depend_mean', '${json["depend_mean"]}', 'proofreading', '${json["proofreading"]}', 'sentence_num', '${json["sentence_num"]}'
     ));`;
     alert(query_text)
 
