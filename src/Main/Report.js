@@ -147,8 +147,10 @@ const Submit = (props) => {
       // .catch(error => PromiseRejectionEvent());
     }
 
-    const json = await getapi(text);
+    let json = await getapi(text);
+    json = JSON.parse(json)
     alert(json)
+    alert(json['text'])
    
     
     
@@ -164,7 +166,7 @@ const Submit = (props) => {
       'text', '${json['text']}', 'char_num', '${json["char_num"]}', 'word_num', '${json["word_num"]}', 'bind_rate', '${json["bind_rate"]}', 'char_rate', '${json["char_rate"]}', 'dupli_num', '${json["dupli_num"]}', 'end_unity', '${json["end_unity"]}','depend_mean', '${json["depend_mean"]}', 'proofreading', '${json["proofreading"]}', 'sentence_num', '${json["sentence_num"]}'
     ));`;
     alert(query_text)
-    alert(JSON.parse(JSON.stringify(json)));
+    // alert(JSON.parse(JSON.stringify(json)));
 
     await API.graphql(graphqlOperation(queryRds, {
       query: query_text
