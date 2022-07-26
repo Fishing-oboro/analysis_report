@@ -147,7 +147,7 @@ const Submit = (props) => {
 
     const data = await getapi(text);
     const result = JSON.stringify(data);
-    const json = JSON.parse(result);
+    const json = await JSON.parse(result);
     
     alert(`success get result: ${result}`);
 
@@ -157,9 +157,11 @@ const Submit = (props) => {
     //             query: `insert into user_report (user_id, report_id, json_text) values (${user_id}, ${report_id}, ${data});`
     //           }).catch((error) => {console.log('error')})
     // );
+    alert(json["text"]);
     const query_text = `insert into user_report (user_id, report_id, json_text) values (${user_id}, ${report_id}, JSON_OBJECT(
       'text', '${json["text"]}', 'char_num', '${json["char_num"]}', 'word_num', '${json["word_num"]}', 'bind_rate', '${json["bind_rate"]}', 'char_rate', '${json["char_rate"]}', 'dupli_num', '${json["dupli_num"]}', 'end_unity', '${json["end_unity"]}','depend_mean', '${json["depend_mean"]}', 'proofreading', '${json["proofreading"]}', 'sentence_num', '${json["sentence_num"]}'
     ));`;
+    alert(query_text)
 
     await API.graphql(graphqlOperation(queryRds, {
       query: query_text
