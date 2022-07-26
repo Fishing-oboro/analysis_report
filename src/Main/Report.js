@@ -148,6 +148,7 @@ const Submit = (props) => {
     }
 
     const json = await getapi(text);
+    alert(JSON.stringify(json));
     
     
 
