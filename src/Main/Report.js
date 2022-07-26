@@ -153,7 +153,7 @@ const Submit = (props) => {
     // fetch(`/db/result/post?user_id=${user_id}&report_id=${report_id}&json_text=${result}`, {method: 'POST'});
 
     await API.graphql(graphqlOperation(queryRds, {
-                query: `insert into user_report (user_id, report_id, json_text) values (${user_id}, ${report_id}, ${result});`
+                query: `insert into user_report (user_id, report_id, json_text) values (${user_id}, ${report_id}, ${data});`
               }).catch((error) => {console.log('error')})
     );
     
