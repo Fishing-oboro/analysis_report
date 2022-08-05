@@ -8,6 +8,7 @@ import { Forgot } from "./Login/Forgot";
 
 import React from 'react';
 import { LoginPage2 } from "./Login/newLoginPage";
+import { Test } from "./test";
 
 const TitleHeader = styled.div`
   position: fixed;
